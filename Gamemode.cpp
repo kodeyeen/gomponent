@@ -12,13 +12,19 @@ Gamemode::Gamemode(const std::string& path)
 }
 
 void Gamemode::init() {
-	void* onGameModeInit = findCallback("onGameModeInit");
-	void* onPlayerConnect = findCallback("onPlayerConnect");
+	callbacks.emplace("onGameModeInit", findCallback("onGameModeInit"));
+	callbacks.emplace("onPlayerSpawn", findCallback("onPlayerSpawn"));
+	callbacks.emplace("onIncomingConnection", findCallback("onIncomingConnection"));
+	callbacks.emplace("onPlayerConnect", findCallback("onPlayerConnect"));
+	callbacks.emplace("onPlayerDisconnect", findCallback("onPlayerDisconnect"));
+	callbacks.emplace("onPlayerClientInit", findCallback("onPlayerClientInit"));
+	callbacks.emplace("onPlayerText", findCallback("onPlayerText"));
+	callbacks.emplace("onPlayerCommandText", findCallback("onPlayerCommandText"));
+	callbacks.emplace("onPlayerDeath", findCallback("onPlayerDeath"));
+	callbacks.emplace("onPlayerUpdate", findCallback("onPlayerUpdate"));
+	callbacks.emplace("onPlayerRequestClass", findCallback("onPlayerRequestClass"));
 
-	callbacks.emplace("onGameModeInit", onGameModeInit);
-	callbacks.emplace("onPlayerConnect", onPlayerConnect);
-
-	call("onGameModeInit");
+	call<void>("onGameModeInit");
 }
 
 Gamemode::~Gamemode()

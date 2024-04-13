@@ -9,6 +9,7 @@
 // Include the component's definition.
 #include "GompComponent.hpp"
 #include "Gamemode.hpp"
+#include "ClassEvents.hpp"
 #include "PlayerEvents.hpp"
 
 Gamemode* GompComponent::getGamemode() {
@@ -18,7 +19,7 @@ Gamemode* GompComponent::getGamemode() {
 // Required component methods.
 StringView GompComponent::componentName() const
 {
-	return "Go";
+	return "Gomp";
 }
 
 SemanticVersion GompComponent::componentVersion() const
@@ -32,26 +33,44 @@ void GompComponent::onLoad(ICore* c)
 	core_ = c;
 	players = &core_->getPlayers();
 
+	gamemode_ = new Gamemode("./gamemodes/test.dll");
+	gamemode_->core = core_;
+	gamemode_->config = &core_->getConfig();
+
 	// Done.
-	core_->printLn("Go component loaded.");
+	core_->printLn("Gomp component loaded.");
 }
 
 void GompComponent::onInit(IComponentList* components)
 {
-	core_->printLn("Go component is being initialized.");
+	core_->printLn("Gomp component is being initialized.");
 
-	gamemode_ = new Gamemode("./gamemodes/test.dll");
-	gamemode_->init();
+	gamemode_->players = players;
+	gamemode_->classes = components->queryComponent<IClassesComponent>();
+	gamemode_->pickups = components->queryComponent<IPickupsComponent>();
+	gamemode_->textdraws = components->queryComponent<ITextDrawsComponent>();
+	gamemode_->vehicles = components->queryComponent<IVehiclesComponent>();
 
 	if (players)
 	{
+		players->getPlayerSpawnDispatcher().addEventHandler(PlayerEvents::Get());
 		players->getPlayerConnectDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerTextDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerDamageDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerUpdateDispatcher().addEventHandler(PlayerEvents::Get());
 	}
+
+	if (gamemode_->classes)
+	{
+		gamemode_->classes->getEventDispatcher().addEventHandler(ClassEvents::Get());
+	}
+
+	gamemode_->init();
 }
 
 void GompComponent::onReady()
 {
-	core_->printLn("Go component is ready.");
+	core_->printLn("Gomp component is ready.");
 }
 
 void GompComponent::onFree(IComponent* component)

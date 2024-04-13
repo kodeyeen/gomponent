@@ -15,7 +15,16 @@ add_library(${PROJECT_NAME} SHARED
 	main.cpp
 	GompComponent.cpp
 	Gamemode.cpp
-	api.cpp
+	
+	"api/api.hpp"
+	"api/Class.cpp"
+	"api/Config.cpp"
+	"api/Pickup.cpp"
+	"api/Player.cpp"
+	"api/Server.cpp"
+	"api/TextDraw.cpp"
+	"api/Vehicle.cpp"
+	"api/api.cpp"
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
