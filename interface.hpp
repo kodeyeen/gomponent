@@ -14,7 +14,7 @@
 #include <sdk.hpp>
 
 // If this data is to be used in other components only share an ABI stable base class.
-struct IGompComponent : IComponent
+struct IGomponent : IComponent
 {
 	// Visit https://open.mp/uid to generate a new unique ID (different to the extension UID).
 	PROVIDE_UID(0xDC839D8E32CF56A6);

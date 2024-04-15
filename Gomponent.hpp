@@ -17,10 +17,10 @@
 #include "Gamemode.hpp"
 
 // `final` so we don't need virtual destructors.  Also because we know it isn't inherited.
-class GompComponent final
+class Gomponent final
 	// This class is an implementation of the publicly shared `IWeatherComponent` interface.
-	: public IGompComponent
-	, public Singleton<GompComponent>
+	: public IGomponent
+	, public Singleton<Gomponent>
 {
 private:
 	// Hold a reference to the main server core.
@@ -49,5 +49,5 @@ public:
 	void reset() override;
 
 	// When this component is destroyed we need to tell any linked components this it is gone.
-	~GompComponent();
+	~Gomponent();
 };

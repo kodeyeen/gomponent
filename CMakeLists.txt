@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(Gomp LANGUAGES C CXX VERSION 0.0.1)
+project(Gomponent LANGUAGES C CXX VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -13,7 +13,7 @@ include_directories(
 
 add_library(${PROJECT_NAME} SHARED
 	main.cpp
-	GompComponent.cpp
+	Gomponent.cpp
 	Gamemode.cpp
 	
 	"api/api.hpp"
@@ -25,7 +25,7 @@ add_library(${PROJECT_NAME} SHARED
 	"api/TextDraw.cpp"
 	"api/Vehicle.cpp"
 	"api/api.cpp"
-)
+ "api/Object.cpp")
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     OMP-SDK

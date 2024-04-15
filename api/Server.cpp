@@ -1,14 +1,14 @@
 #include "api.hpp"
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-	GOMP_EXPORT void server_setModeText(String text)
+	GOMPONENT_EXPORT void server_setModeText(String text)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->core)
 		{
@@ -16,9 +16,9 @@ extern "C"
 		}
 	}
 
-	GOMP_EXPORT void server_setWeather(int weather)
+	GOMPONENT_EXPORT void server_setWeather(int weather)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->core)
 		{
@@ -26,9 +26,9 @@ extern "C"
 		}
 	}
 
-	GOMP_EXPORT void server_setWorldTime(int hours)
+	GOMPONENT_EXPORT void server_setWorldTime(int hours)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->core)
 		{
@@ -36,9 +36,9 @@ extern "C"
 		}
 	}
 
-	GOMP_EXPORT void server_enableStuntBonuses()
+	GOMPONENT_EXPORT void server_enableStuntBonuses()
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->core)
 		{

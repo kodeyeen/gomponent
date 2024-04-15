@@ -13,10 +13,10 @@
 #include "interface.hpp"
 
 // Include the binary-local implementation for this component.
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 
 // Automatically called when the compiled binary is loaded.
 COMPONENT_ENTRY_POINT()
 {
-	return GompComponent::Get();
+	return Gomponent::Get();
 }

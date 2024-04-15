@@ -1,7 +1,8 @@
 #include <sdk.hpp>
 
+#include <api/api.hpp>
 #include "Singleton.hpp"
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 #include "Gamemode.hpp"
 
 class PlayerEvents : public PlayerSpawnEventHandler, public PlayerConnectEventHandler, public PlayerStreamEventHandler, public PlayerTextEventHandler, public PlayerShotEventHandler, public PlayerChangeEventHandler, public PlayerDamageEventHandler, public PlayerClickEventHandler, public PlayerCheckEventHandler, public PlayerUpdateEventHandler, public Singleton<PlayerEvents>
@@ -9,7 +10,7 @@ class PlayerEvents : public PlayerSpawnEventHandler, public PlayerConnectEventHa
 public:
 	PlayerEvents()
 	{
-		gamemode_ = GompComponent::Get()->getGamemode();
+		gamemode_ = Gomponent::Get()->getGamemode();
 	}
 
 	void onPlayerSpawn(IPlayer& player) override
@@ -45,9 +46,9 @@ public:
 
 	bool onPlayerCommandText(IPlayer& player, StringView message) override
 	{
-		std::cout << "COMMAND SENT" << std::endl;
-		gamemode_->call<void>("onPlayerCommandText", static_cast<void*>(&player), std::string(message).c_str());
-		return true;
+		String str = { message.data(), message.length() };
+
+		return gamemode_->call<unsigned char>("onPlayerCommandText", static_cast<void*>(&player), str) != 0;
 	}
 
 	void onPlayerDeath(IPlayer& player, IPlayer* killer, int reason) override
@@ -61,7 +62,7 @@ public:
 		auto value = nowMs.time_since_epoch();
 		long nowMillis = value.count();
 
-		return gamemode_->call<int>("onPlayerUpdate", static_cast<void*>(&player), nowMillis) != 0;
+		return gamemode_->call<unsigned char>("onPlayerUpdate", static_cast<void*>(&player), nowMillis) != 0;
 	}
 
 private:

@@ -4,6 +4,7 @@
 #include <string>
 #include <sdk.hpp>
 #include <Server/Components/Classes/classes.hpp>
+#include <Server/Components/Objects/objects.hpp>
 #include <Server/Components/Pickups/pickups.hpp>
 #include <Server/Components/TextDraws/textdraws.hpp>
 #include <Server/Components/Vehicles/vehicles.hpp>
@@ -16,6 +17,7 @@ public:
 	IConfig* config;
 	IPlayerPool* players;
 	IClassesComponent* classes;
+	IObjectsComponent* objects;
 	IPickupsComponent* pickups;
 	ITextDrawsComponent* textdraws;
 	IVehiclesComponent* vehicles;

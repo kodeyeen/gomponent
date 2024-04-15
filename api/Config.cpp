@@ -1,14 +1,14 @@
 #include "api.hpp"
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-	GOMP_EXPORT void config_setPlayerMarkerMode(int mode)
+	GOMPONENT_EXPORT void config_setPlayerMarkerMode(int mode)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
@@ -16,9 +16,9 @@ extern "C"
 		}
 	}
 
-	GOMP_EXPORT void config_setNametagDrawRadius(float radius)
+	GOMPONENT_EXPORT void config_setNametagDrawRadius(float radius)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
@@ -26,9 +26,9 @@ extern "C"
 		}
 	}
 	
-	GOMP_EXPORT void config_useEntryExitMarkers(int use)
+	GOMPONENT_EXPORT void config_useEntryExitMarkers(int use)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
@@ -36,9 +36,9 @@ extern "C"
 		}
 	}
 
-	GOMP_EXPORT void config_useManualEngineAndLights(int use)
+	GOMPONENT_EXPORT void config_useManualEngineAndLights(int use)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
@@ -46,9 +46,9 @@ extern "C"
 		}
 	}
 
-	GOMP_EXPORT void config_useNametags(int use)
+	GOMPONENT_EXPORT void config_useNametags(int use)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{

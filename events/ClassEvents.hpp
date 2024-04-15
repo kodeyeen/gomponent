@@ -1,7 +1,7 @@
 #include <sdk.hpp>
 
 #include "Singleton.hpp"
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 #include "Gamemode.hpp"
 
 class ClassEvents : public ClassEventHandler, public Singleton<ClassEvents>
@@ -9,7 +9,7 @@ class ClassEvents : public ClassEventHandler, public Singleton<ClassEvents>
 public:
 	ClassEvents()
 	{
-		gamemode_ = GompComponent::Get()->getGamemode();
+		gamemode_ = Gomponent::Get()->getGamemode();
 	}
 
 	bool onPlayerRequestClass(IPlayer& player, unsigned int classId) override
@@ -22,7 +22,7 @@ public:
 			class_ = classes->get(classId);
 		}
 
-		return gamemode_->call<int>("onPlayerRequestClass", static_cast<void*>(&player), static_cast<void*>(class_)) != 0;
+		return gamemode_->call<unsigned char>("onPlayerRequestClass", static_cast<void*>(&player), static_cast<void*>(class_)) != 0;
 	}
 
 private:

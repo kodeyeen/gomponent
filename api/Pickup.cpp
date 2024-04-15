@@ -1,5 +1,5 @@
 #include "api.hpp"
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 
 #ifdef __cplusplus
 extern "C"
@@ -8,9 +8,9 @@ extern "C"
 
 // Pickup
 
-	GOMP_EXPORT void* pickup_create(int modelId, unsigned char type, float x, float y, float z, unsigned int virtualWorld, int isStatic, void* player)
+	GOMPONENT_EXPORT void* pickup_create(int modelId, unsigned char type, float x, float y, float z, unsigned int virtualWorld, int isStatic, void* player)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 		IPickupsComponent* pickups = gamemode->pickups;
 
 		if (player == NULL)

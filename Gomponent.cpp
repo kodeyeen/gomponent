@@ -7,27 +7,27 @@
  */
 
 // Include the component's definition.
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 #include "Gamemode.hpp"
 #include "ClassEvents.hpp"
 #include "PlayerEvents.hpp"
 
-Gamemode* GompComponent::getGamemode() {
+Gamemode* Gomponent::getGamemode() {
 	return gamemode_;
 }
 
 // Required component methods.
-StringView GompComponent::componentName() const
+StringView Gomponent::componentName() const
 {
 	return "Gomp";
 }
 
-SemanticVersion GompComponent::componentVersion() const
+SemanticVersion Gomponent::componentVersion() const
 {
 	return SemanticVersion(0, 0, 1, 0);
 }
 
-void GompComponent::onLoad(ICore* c)
+void Gomponent::onLoad(ICore* c)
 {
 	// Cache core, listen to player events.
 	core_ = c;
@@ -41,12 +41,13 @@ void GompComponent::onLoad(ICore* c)
 	core_->printLn("Gomp component loaded.");
 }
 
-void GompComponent::onInit(IComponentList* components)
+void Gomponent::onInit(IComponentList* components)
 {
 	core_->printLn("Gomp component is being initialized.");
 
 	gamemode_->players = players;
 	gamemode_->classes = components->queryComponent<IClassesComponent>();
+	gamemode_->objects = components->queryComponent<IObjectsComponent>();
 	gamemode_->pickups = components->queryComponent<IPickupsComponent>();
 	gamemode_->textdraws = components->queryComponent<ITextDrawsComponent>();
 	gamemode_->vehicles = components->queryComponent<IVehiclesComponent>();
@@ -68,27 +69,27 @@ void GompComponent::onInit(IComponentList* components)
 	gamemode_->init();
 }
 
-void GompComponent::onReady()
+void Gomponent::onReady()
 {
 	core_->printLn("Gomp component is ready.");
 }
 
-void GompComponent::onFree(IComponent* component)
+void Gomponent::onFree(IComponent* component)
 {
 }
 
-void GompComponent::free()
+void Gomponent::free()
 {
 	// Deletes the component.
 	delete this;
 }
 
-void GompComponent::reset()
+void Gomponent::reset()
 {
 	// Resets data when the mode changes.
 }
 
 // When this component is destroyed we need to tell any linked components this it is gone.
-GompComponent::~GompComponent()
+Gomponent::~Gomponent()
 {
 }

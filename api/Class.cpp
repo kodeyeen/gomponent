@@ -3,7 +3,7 @@
 #include "Server/Components/Classes/classes.hpp"
 
 #include "api.hpp"
-#include "GompComponent.hpp"
+#include "Gomponent.hpp"
 
 #ifdef __cplusplus
 extern "C"
@@ -25,9 +25,9 @@ extern "C"
 		uint32_t ammo3;
 	} ClassData;
 
-	GOMP_EXPORT void* class_create(ClassData* data)
+	GOMPONENT_EXPORT void* class_create(ClassData* data)
 	{
-		auto gamemode = GompComponent::Get()->getGamemode();
+		auto gamemode = Gomponent::Get()->getGamemode();
 		IClassesComponent* classes = gamemode->classes;
 
 		if (classes)
@@ -48,12 +48,12 @@ extern "C"
 		return NULL;
 	}
 
-	GOMP_EXPORT int class_getID(void* class_)
+	GOMPONENT_EXPORT int class_getID(void* class_)
 	{
 		return static_cast<IClass*>(class_)->getID();
 	}
 
-	GOMP_EXPORT void class_setClass(void* class_, ClassData* data)
+	GOMPONENT_EXPORT void class_setClass(void* class_, ClassData* data)
 	{
 		WeaponSlots weapons;
 		weapons[0].id = data->weapon1;
@@ -68,7 +68,7 @@ extern "C"
 		static_cast<IClass*>(class_)->setClass(playerCls);
 	}
 
-	GOMP_EXPORT ClassData class_getClass(void* class_)
+	GOMPONENT_EXPORT ClassData class_getClass(void* class_)
 	{
 		const PlayerClass& playerCls = static_cast<IClass*>(class_)->getClass();
 
