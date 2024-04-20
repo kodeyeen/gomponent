@@ -18,6 +18,17 @@ extern "C"
 		int minutes;
 	} PlayerTime;
 
+	typedef struct
+	{
+		int model;
+		int bone;
+		Vector3 offset;
+		Vector3 rotation;
+		Vector3 scale;
+		uint32_t colour1;
+		uint32_t colour2;
+	} PlayerAttachedObject;
+
 	// Player
 
 	GOMPONENT_EXPORT int player_getID(void* player)
@@ -926,6 +937,90 @@ extern "C"
 
 		return 0;
 	}
+
+	// object data
+
+	GOMPONENT_EXPORT void player_beginObjectEditing(void* player, void* object)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->beginEditing(*static_cast<IObject*>(object));
+	}
+
+	GOMPONENT_EXPORT void player_endObjectEditing(void* player)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->endEditing();
+	}
+
+	GOMPONENT_EXPORT unsigned char player_isEditingObject(void* player)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->editingObject() ? 1 : 0;
+	}
+
+	GOMPONENT_EXPORT void player_beginObjectSelecting(void* player)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->beginSelecting();
+	}
+
+	GOMPONENT_EXPORT unsigned char player_isSelectingObject(void* player)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->selectingObject() ? 1 : 0;
+	}
+
+	GOMPONENT_EXPORT void player_setAttachedObject(void* player, int index, int modelId, int bone, float offsetX, float offsetY, float offsetZ, float rotX, float rotY, float rotZ, float scaleX, float scaleY, float scaleZ, uint32_t colour1, uint32_t colour2)
+	{
+		ObjectAttachmentSlotData attachment;
+		attachment.model = modelId;
+		attachment.bone = bone;
+		attachment.offset = Vector3(offsetX, offsetY, offsetZ);
+		attachment.rotation = Vector3(rotX, rotY, rotZ);
+		attachment.scale = Vector3(scaleX, scaleY, scaleZ);
+		attachment.colour1 = Colour::FromARGB(colour1);
+		attachment.colour2 = Colour::FromARGB(colour2);
+
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->setAttachedObject(index, attachment);
+	}
+
+	GOMPONENT_EXPORT PlayerAttachedObject player_getAttachedObject(void* player, int index)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+
+		ObjectAttachmentSlotData attachment = data->getAttachedObject(index);
+
+		PlayerAttachedObject obj;
+		obj.model = attachment.model;
+		obj.bone = attachment.bone;
+		obj.offset = attachment.offset;
+		obj.rotation = attachment.rotation;
+		obj.scale = attachment.scale;
+		obj.colour1 = attachment.colour1.ARGB();
+		obj.colour2 = attachment.colour2.ARGB();
+
+		return obj;
+	}
+
+	GOMPONENT_EXPORT void player_removeAttachedObject(void* player, int index)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->removeAttachedObject(index);
+	}
+
+	GOMPONENT_EXPORT void player_editAttachedObject(void* player, int index)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->editAttachedObject(index);
+	}
+
+	GOMPONENT_EXPORT unsigned char player_hasAttachedObject(void* player, int index)
+	{
+		IPlayerObjectData* data = queryExtension<IPlayerObjectData>(static_cast<IPlayer*>(player));
+		return data->hasAttachedObject(index) ? 1 : 0;
+	}
+	
 
 	// misc
 

@@ -28,6 +28,21 @@ extern "C"
 		return vehicles->release(static_cast<IVehicle*>(vehicle)->getID());
 	}
 
+	GOMPONENT_EXPORT void* vehicle_getByID(int id)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		IVehiclesComponent* vehicles = gamemode->vehicles;
+
+		if (vehicles)
+		{
+			IVehicle* vehicle = vehicles->get(id);
+
+			return static_cast<void*>(vehicle);
+		}
+
+		return NULL;
+	}
+
 	GOMPONENT_EXPORT int vehicle_isStreamedInForPlayer(void* vehicle, void* player)
 	{
 		return static_cast<IVehicle*>(vehicle)->isStreamedInForPlayer(*static_cast<IPlayer*>(player)) ? 1 : 0;

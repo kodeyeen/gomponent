@@ -19,7 +19,7 @@ Gamemode* Gomponent::getGamemode() {
 // Required component methods.
 StringView Gomponent::componentName() const
 {
-	return "Gomp";
+	return "Gomponent";
 }
 
 SemanticVersion Gomponent::componentVersion() const
@@ -38,12 +38,12 @@ void Gomponent::onLoad(ICore* c)
 	gamemode_->config = &core_->getConfig();
 
 	// Done.
-	core_->printLn("Gomp component loaded.");
+	core_->printLn("Gomponent loaded.");
 }
 
 void Gomponent::onInit(IComponentList* components)
 {
-	core_->printLn("Gomp component is being initialized.");
+	core_->printLn("Gomponent is being initialized.");
 
 	gamemode_->players = players;
 	gamemode_->classes = components->queryComponent<IClassesComponent>();
@@ -71,7 +71,7 @@ void Gomponent::onInit(IComponentList* components)
 
 void Gomponent::onReady()
 {
-	core_->printLn("Gomp component is ready.");
+	core_->printLn("Gomponent is ready.");
 }
 
 void Gomponent::onFree(IComponent* component)
