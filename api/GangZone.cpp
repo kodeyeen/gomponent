@@ -41,6 +41,17 @@ extern "C"
 		}
 	}
 
+	GOMPONENT_EXPORT void gangZone_useCheck(void* gangZone, unsigned char use)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		IGangZonesComponent* component = gamemode->gangzones;
+
+		if (component)
+		{
+			component->useGangZoneCheck(*static_cast<IGangZone*>(gangZone), use != 0);
+		}
+	}
+
 	GOMPONENT_EXPORT unsigned char gangZone_isShownForPlayer(void* gangZone, void* player)
 	{
 		return static_cast<IGangZone*>(gangZone)->isShownForPlayer(*static_cast<IPlayer*>(player)) ? 1 : 0;
@@ -56,9 +67,31 @@ extern "C"
 		return static_cast<IGangZone*>(gangZone)->showForPlayer(*static_cast<IPlayer*>(player), Colour::FromRGBA(colour));
 	}
 
+	GOMPONENT_EXPORT void gangZone_showForAll(void* gangZone, uint32_t colour)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		IPlayerPool* players = gamemode->players;
+
+		for (IPlayer* player : players->entries())
+		{
+			static_cast<IGangZone*>(gangZone)->showForPlayer(*player, Colour::FromRGBA(colour));
+		}
+	}
+
 	GOMPONENT_EXPORT void gangZone_hideForPlayer(void* gangZone, void* player)
 	{
 		return static_cast<IGangZone*>(gangZone)->hideForPlayer(*static_cast<IPlayer*>(player));
+	}
+
+	GOMPONENT_EXPORT void gangZone_hideForAll(void* gangZone)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		IPlayerPool* players = gamemode->players;
+
+		for (IPlayer* player : players->entries())
+		{
+			static_cast<IGangZone*>(gangZone)->hideForPlayer(*player);
+		}
 	}
 
 	GOMPONENT_EXPORT void gangZone_flashForPlayer(void* gangZone, void* player, uint32_t colour)
@@ -66,9 +99,31 @@ extern "C"
 		return static_cast<IGangZone*>(gangZone)->flashForPlayer(*static_cast<IPlayer*>(player), Colour::FromRGBA(colour));
 	}
 
+	GOMPONENT_EXPORT void gangZone_flashForAll(void* gangZone, uint32_t colour)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		IPlayerPool* players = gamemode->players;
+
+		for (IPlayer* player : players->entries())
+		{
+			static_cast<IGangZone*>(gangZone)->flashForPlayer(*player, Colour::FromRGBA(colour));
+		}
+	}
+
 	GOMPONENT_EXPORT void gangZone_stopFlashForPlayer(void* gangZone, void* player)
 	{
 		return static_cast<IGangZone*>(gangZone)->stopFlashForPlayer(*static_cast<IPlayer*>(player));
+	}
+
+	GOMPONENT_EXPORT void gangZone_stopFlashForAll(void* gangZone)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		IPlayerPool* players = gamemode->players;
+
+		for (IPlayer* player : players->entries())
+		{
+			static_cast<IGangZone*>(gangZone)->stopFlashForPlayer(*player);
+		}
 	}
 
 	GOMPONENT_EXPORT GangZonePos gangZone_getPosition(void* gangZone)
