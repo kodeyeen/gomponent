@@ -38,15 +38,16 @@ void Gomponent::onLoad(ICore* c)
 	gamemode_->config = &core_->getConfig();
 
 	// Done.
-	core_->printLn("Gomponent loaded.");
+	// core_->printLn("Gomponent loaded.");
 }
 
 void Gomponent::onInit(IComponentList* components)
 {
-	core_->printLn("Gomponent is being initialized.");
+	// core_->printLn("Gomponent is being initialized.");
 
 	gamemode_->players = players;
 	gamemode_->classes = components->queryComponent<IClassesComponent>();
+	gamemode_->gangzones = components->queryComponent<IGangZonesComponent>();
 	gamemode_->objects = components->queryComponent<IObjectsComponent>();
 	gamemode_->pickups = components->queryComponent<IPickupsComponent>();
 	gamemode_->textdraws = components->queryComponent<ITextDrawsComponent>();
@@ -71,7 +72,7 @@ void Gomponent::onInit(IComponentList* components)
 
 void Gomponent::onReady()
 {
-	core_->printLn("Gomponent is ready.");
+	// core_->printLn("Gomponent is ready.");
 }
 
 void Gomponent::onFree(IComponent* component)

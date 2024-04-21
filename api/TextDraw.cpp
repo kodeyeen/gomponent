@@ -16,10 +16,7 @@ extern "C"
 		if (component)
 		{
 			ITextDraw* textdraw = component->create(Vector2(posX, posY), StringView(text.buf, text.length));
-			if (textdraw)
-			{
-				return textdraw;
-			}
+			return static_cast<void*>(textdraw);
 		}
 		return NULL;
 	}
