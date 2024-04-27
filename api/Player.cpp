@@ -29,6 +29,13 @@ extern "C"
 		uint32_t colour2;
 	} PlayerAttachedObject;
 
+	typedef struct
+	{
+		Vector3 position;
+		float radius;
+		unsigned char isEnabled;
+	} Checkpoint;
+
 	// Player
 
 	GOMPONENT_EXPORT int player_getID(void* player)
@@ -820,14 +827,18 @@ extern "C"
 
 	// checkpoint data
 
-	GOMPONENT_EXPORT void* player_setCheckpoint(void* player, float pX, float pY, float pZ, float radius)
+	GOMPONENT_EXPORT void* player_getCheckpoint(void* player)
 	{
 		IPlayerCheckpointData* data = queryExtension<IPlayerCheckpointData>(static_cast<IPlayer*>(player));
-
 		ICheckpointData& cp = data->getCheckpoint();
-		cp.setPosition(Vector3(pX, pY, pZ));
-		cp.setRadius(radius);
-		cp.enable();
+
+		return &cp;
+	}
+
+	GOMPONENT_EXPORT void* player_getRaceCheckpoint(void* player)
+	{
+		IPlayerCheckpointData* data = queryExtension<IPlayerCheckpointData>(static_cast<IPlayer*>(player));
+		IRaceCheckpointData& cp = data->getRaceCheckpoint();
 
 		return &cp;
 	}
