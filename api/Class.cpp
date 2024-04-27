@@ -9,6 +9,7 @@
 extern "C"
 {
 #endif
+
 	typedef struct ClassData
 	{
 		int team;

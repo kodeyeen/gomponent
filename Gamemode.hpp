@@ -5,9 +5,11 @@
 #include <sdk.hpp>
 #include <Server/Components/Classes/classes.hpp>
 #include <Server/Components/GangZones/gangzones.hpp>
+#include <Server/Components/Menus/menus.hpp>
 #include <Server/Components/Objects/objects.hpp>
 #include <Server/Components/Pickups/pickups.hpp>
 #include <Server/Components/TextDraws/textdraws.hpp>
+#include <Server/Components/TextLabels/textlabels.hpp>
 #include <Server/Components/Vehicles/vehicles.hpp>
 #include <Windows.h>
 
@@ -19,9 +21,11 @@ public:
 	IPlayerPool* players;
 	IClassesComponent* classes;
 	IGangZonesComponent* gangzones;
+	IMenusComponent* menus;
 	IObjectsComponent* objects;
 	IPickupsComponent* pickups;
 	ITextDrawsComponent* textdraws;
+	ITextLabelsComponent* textlabels;
 	IVehiclesComponent* vehicles;
 
 	Gamemode(const std::string& path);

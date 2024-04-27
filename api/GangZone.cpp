@@ -37,7 +37,7 @@ extern "C"
 
 		if (component)
 		{
-			component->release(static_cast<IGangZone*>(gangZone)->getID());
+			return component->release(static_cast<IGangZone*>(gangZone)->getID());
 		}
 	}
 
@@ -48,7 +48,7 @@ extern "C"
 
 		if (component)
 		{
-			component->useGangZoneCheck(*static_cast<IGangZone*>(gangZone), use != 0);
+			return component->useGangZoneCheck(*static_cast<IGangZone*>(gangZone), use != 0);
 		}
 	}
 

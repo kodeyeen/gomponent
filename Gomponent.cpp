@@ -48,9 +48,11 @@ void Gomponent::onInit(IComponentList* components)
 	gamemode_->players = players;
 	gamemode_->classes = components->queryComponent<IClassesComponent>();
 	gamemode_->gangzones = components->queryComponent<IGangZonesComponent>();
+	gamemode_->menus = components->queryComponent<IMenusComponent>();
 	gamemode_->objects = components->queryComponent<IObjectsComponent>();
 	gamemode_->pickups = components->queryComponent<IPickupsComponent>();
 	gamemode_->textdraws = components->queryComponent<ITextDrawsComponent>();
+	gamemode_->textlabels = components->queryComponent<ITextLabelsComponent>();
 	gamemode_->vehicles = components->queryComponent<IVehiclesComponent>();
 
 	if (players)
