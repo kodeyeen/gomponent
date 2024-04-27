@@ -491,7 +491,7 @@ extern "C"
 		return static_cast<IPlayer*>(player)->setWorldTime(std::chrono::hours(time));
 	}
 
-	GOMPONENT_EXPORT void player_applyAnimation(void* player, float delta, int loop, int lockX, int lockY, int freeze, uint32_t time, String lib, String name, int syncType)
+	GOMPONENT_EXPORT void player_applyAnimation(void* player, float delta, unsigned char loop, unsigned char lockX, unsigned char lockY, unsigned char freeze, uint32_t time, String lib, String name, int syncType)
 	{
 		const AnimationData animationData(delta, loop, lockX, lockY, freeze, time, StringView(lib.buf, lib.length), StringView(name.buf, name.length));
 		return static_cast<IPlayer*>(player)->applyAnimation(animationData, PlayerAnimationSyncType(syncType));
