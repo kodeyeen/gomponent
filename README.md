@@ -1,11 +1,13 @@
 Gomponent
 ==================================
 
-This is an open.mp component for loading gamemodes written in Go with the gomp package.
-The name "Gomponent" stands for:
+This is an open.mp component for loading gamemodes written in Go with the `gomp` package.
+The name `Gomponent` is composed of three word-forming elements:
 1. Go
 2. omp (short for open.mp)
 3. Component
+
+Similar to goroutines (go coroutines) in Go.
 
 ## Usage
 
