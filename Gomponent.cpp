@@ -46,6 +46,7 @@ void Gomponent::onInit(IComponentList* components)
 	// core_->printLn("Gomponent is being initialized.");
 
 	gamemode_->players = players;
+	gamemode_->actors = components->queryComponent<IActorsComponent>();
 	gamemode_->classes = components->queryComponent<IClassesComponent>();
 	gamemode_->gangzones = components->queryComponent<IGangZonesComponent>();
 	gamemode_->menus = components->queryComponent<IMenusComponent>();

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <sdk.hpp>
+#include <Server/Components/Actors/actors.hpp>
 #include <Server/Components/Classes/classes.hpp>
 #include <Server/Components/GangZones/gangzones.hpp>
 #include <Server/Components/Menus/menus.hpp>
@@ -19,6 +20,7 @@ public:
 	ICore* core;
 	IConfig* config;
 	IPlayerPool* players;
+	IActorsComponent* actors;
 	IClassesComponent* classes;
 	IGangZonesComponent* gangzones;
 	IMenusComponent* menus;
