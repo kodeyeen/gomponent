@@ -128,6 +128,36 @@ extern "C"
 		return static_cast<IActor*>(actor)->getSpawnData();
 	}
 
+	GOMPONENT_EXPORT void actor_setPosition(void* actor, float posX, float posY, float posZ)
+	{
+		return static_cast<IActor*>(actor)->setPosition(Vector3(posX, posY, posZ));
+	}
+
+	GOMPONENT_EXPORT Vector3 actor_getPosition(void* actor)
+	{
+		return static_cast<IActor*>(actor)->getPosition();
+	}
+
+	GOMPONENT_EXPORT void actor_setVirtualWorld(void* actor, int vw)
+	{
+		return static_cast<IActor*>(actor)->setVirtualWorld(vw);
+	}
+
+	GOMPONENT_EXPORT int actor_getVirtualWorld(void* actor)
+	{
+		return static_cast<IActor*>(actor)->getVirtualWorld();
+	}
+
+	GOMPONENT_EXPORT void actor_setFacingAngle(void* actor, float angle)
+	{
+		return static_cast<IActor*>(actor)->setRotation(Vector3(0.0f, 0.0f, angle));
+	}
+
+	GOMPONENT_EXPORT float actor_getFacingAngle(void* actor)
+	{
+		return static_cast<IActor*>(actor)->getRotation().ToEuler().z;
+	}
+
 #ifdef __cplusplus
 }
 #endif
