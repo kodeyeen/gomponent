@@ -181,9 +181,9 @@ extern "C"
 		return { serialView.data(), serialView.length() };
 	}
 
-	GOMPONENT_EXPORT void player_giveWeapon(void* player, WeaponSlotData weapon)
+	GOMPONENT_EXPORT void player_giveWeapon(void* player, uint8_t id, uint32_t ammo)
 	{
-		return static_cast<IPlayer*>(player)->giveWeapon(weapon);
+		return static_cast<IPlayer*>(player)->giveWeapon(WeaponSlotData(id, ammo));
 	}
 
 	GOMPONENT_EXPORT void player_removeWeapon(void* player, uint8_t weapon)
@@ -191,9 +191,9 @@ extern "C"
 		return static_cast<IPlayer*>(player)->removeWeapon(weapon);
 	}
 
-	GOMPONENT_EXPORT void player_setWeaponAmmo(void* player, WeaponSlotData data)
+	GOMPONENT_EXPORT void player_setWeaponAmmo(void* player, uint8_t id, uint32_t ammo)
 	{
-		return static_cast<IPlayer*>(player)->setWeaponAmmo(data);
+		return static_cast<IPlayer*>(player)->setWeaponAmmo(WeaponSlotData(id, ammo));
 	}
 
 	GOMPONENT_EXPORT Array* player_getWeapons(void* player)
@@ -351,9 +351,9 @@ extern "C"
 		return static_cast<IPlayer*>(player)->createExplosion(Vector3(vecX, vecY, vecZ), type, radius);
 	}
 
-	GOMPONENT_EXPORT void player_sendDeathMessage(void* player, void* plr, void* killer, int weapon)
+	GOMPONENT_EXPORT void player_sendDeathMessage(void* player, void* killee, void* killer, int weapon)
 	{
-		return static_cast<IPlayer*>(player)->sendDeathMessage(*static_cast<IPlayer*>(plr), static_cast<IPlayer*>(killer), weapon);
+		return static_cast<IPlayer*>(player)->sendDeathMessage(*static_cast<IPlayer*>(killee), static_cast<IPlayer*>(killer), weapon);
 	}
 
 	GOMPONENT_EXPORT void player_sendEmptyDeathMessage(void* player)
@@ -675,12 +675,12 @@ extern "C"
 		return static_cast<IPlayer*>(player)->useCameraTargeting(enable != 0);
 	}
 
-	GOMPONENT_EXPORT int player_hasCameraTargetting(void* player)
+	GOMPONENT_EXPORT unsigned char player_hasCameraTargetting(void* player)
 	{
 		return static_cast<IPlayer*>(player)->hasCameraTargeting() ? 1 : 0;
 	}
 
-	GOMPONENT_EXPORT void player_removeFromVehicle(void* player, int force)
+	GOMPONENT_EXPORT void player_removeFromVehicle(void* player, unsigned char force)
 	{
 		return static_cast<IPlayer*>(player)->removeFromVehicle(force != 0);
 	}

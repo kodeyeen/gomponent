@@ -6,54 +6,95 @@ extern "C"
 {
 #endif
 
-	GOMPONENT_EXPORT void config_setPlayerMarkerMode(int mode)
+	GOMPONENT_EXPORT void config_setFloat(String key, float value)
 	{
 		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getInt("game.player_marker_mode") = mode;
+			*gamemode->config->getFloat(key) = value;
 		}
 	}
 
-	GOMPONENT_EXPORT void config_setNametagDrawRadius(float radius)
+	GOMPONENT_EXPORT void config_setInt(String key, int value)
 	{
 		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getFloat("game.nametag_draw_radius") = radius;
-		}
-	}
-	
-	GOMPONENT_EXPORT void config_useEntryExitMarkers(int use)
-	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-
-		if (gamemode->config)
-		{
-			*gamemode->config->getBool("game.use_entry_exit_markers") = use != 0;
+			*gamemode->config->getInt(key) = value;
 		}
 	}
 
-	GOMPONENT_EXPORT void config_useManualEngineAndLights(int use)
+	GOMPONENT_EXPORT void config_setBool(String key, unsigned char value)
 	{
 		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getBool("game.use_manual_engine_and_lights") = use != 0;
+			*gamemode->config->getBool(key) = value != 0;
 		}
 	}
 
-	GOMPONENT_EXPORT void config_useNametags(int use)
+	GOMPONENT_EXPORT int config_getType(String key)
 	{
 		auto gamemode = Gomponent::Get()->getGamemode();
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getBool("game.use_nametags") = use != 0;
+			return gamemode->config->getType(StringView(key.buf, key.length));
 		}
+
+		return -1;
+	}
+
+	GOMPONENT_EXPORT float config_getFloat(String key)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+
+		if (gamemode->config)
+		{
+			return *gamemode->config->getFloat(StringView(key.buf, key.length));
+		}
+
+		return 0.0;
+	}
+
+	GOMPONENT_EXPORT int config_getInt(String key, int value)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+
+		if (gamemode->config)
+		{
+			return *gamemode->config->getInt(StringView(key.buf, key.length));
+		}
+
+		return 0;
+	}
+
+	GOMPONENT_EXPORT unsigned char config_getBool(String key)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+
+		if (gamemode->config)
+		{
+			return *gamemode->config->getBool(StringView(key.buf, key.length));
+		}
+
+		return 0;
+	}
+
+	GOMPONENT_EXPORT unsigned char config_isBanned(String ip)
+	{
+		auto gamemode = Gomponent::Get()->getGamemode();
+		BanEntry entry(StringView(ip.buf, ip.length));
+
+		if (gamemode->config)
+		{
+			return *gamemode->config->isBanned(entry) ? 1 : 0;
+		}
+
+		return 0;
 	}
 
 #ifdef __cplusplus
