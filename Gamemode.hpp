@@ -7,6 +7,7 @@
 #include <Server/Components/Classes/classes.hpp>
 #include <Server/Components/GangZones/gangzones.hpp>
 #include <Server/Components/Menus/menus.hpp>
+#include <Server/Components/Models/models.hpp>
 #include <Server/Components/Objects/objects.hpp>
 #include <Server/Components/Pickups/pickups.hpp>
 #include <Server/Components/TextDraws/textdraws.hpp>
@@ -22,6 +23,7 @@ public:
 	IPlayerPool* players;
 	IActorsComponent* actors;
 	IClassesComponent* classes;
+	ICustomModelsComponent* models;
 	IGangZonesComponent* gangzones;
 	IMenusComponent* menus;
 	IObjectsComponent* objects;
