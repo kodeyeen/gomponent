@@ -254,7 +254,7 @@ extern "C"
 		return NULL;
 	}
 
-	GOMPONENT_EXPORT void playerTextDraw_release(void* textdraw, void* player)
+	GOMPONENT_EXPORT void playerTextDraw_release(void* player, void* textdraw)
 	{
 		IPlayerTextDrawData* playerTextDraws = queryExtension<IPlayerTextDrawData>(static_cast<IPlayer*>(player));
 		if (playerTextDraws)
