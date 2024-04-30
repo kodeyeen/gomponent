@@ -10,7 +10,7 @@ extern "C"
 {
 #endif
 
-	GOMPONENT_EXPORT void* checkpoint_setPosition(void* checkpoint, float posX, float posY, float posZ)
+	GOMPONENT_EXPORT void checkpoint_setPosition(void* checkpoint, float posX, float posY, float posZ)
 	{
 		return static_cast<ICheckpointData*>(checkpoint)->setPosition(Vector3(posX, posY, posZ));
 	}
@@ -52,7 +52,7 @@ extern "C"
 
 	// race checkpoint
 
-	GOMPONENT_EXPORT void* raceCheckpoint_setPosition(void* checkpoint, float posX, float posY, float posZ)
+	GOMPONENT_EXPORT void raceCheckpoint_setPosition(void* checkpoint, float posX, float posY, float posZ)
 	{
 		return static_cast<IRaceCheckpointData*>(checkpoint)->setPosition(Vector3(posX, posY, posZ));
 	}
@@ -94,12 +94,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void raceCheckpoint_setType(void* checkpoint, int type)
 	{
-		return static_cast<IRaceCheckpointData*>(checkpoint)->setType(type);
+		return static_cast<IRaceCheckpointData*>(checkpoint)->setType(RaceCheckpointType(type));
 	}
 
 	GOMPONENT_EXPORT int raceCheckpoint_getType(void* checkpoint)
 	{
-		return static_cast<IRaceCheckpointData*>(checkpoint)->getType();
+		return (int)static_cast<IRaceCheckpointData*>(checkpoint)->getType();
 	}
 
 	GOMPONENT_EXPORT void raceCheckpoint_setNextPosition(void* checkpoint, float posX, float posY, float posZ)

@@ -7,7 +7,7 @@
 #include <Server/Components/Classes/classes.hpp>
 #include <Server/Components/GangZones/gangzones.hpp>
 #include <Server/Components/Menus/menus.hpp>
-#include <Server/Components/Models/models.hpp>
+#include <Server/Components/CustomModels/custommodels.hpp>
 #include <Server/Components/Objects/objects.hpp>
 #include <Server/Components/Pickups/pickups.hpp>
 #include <Server/Components/TextDraws/textdraws.hpp>

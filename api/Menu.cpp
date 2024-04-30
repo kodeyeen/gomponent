@@ -33,25 +33,23 @@ extern "C"
 
 		if (menus)
 		{
-			return menus->release(static_cast<IMenu*>(menu)->getID());
+			menus->release(static_cast<IMenu*>(menu)->getID());
 		}
-
-		return NULL;
 	}
 
 	GOMPONENT_EXPORT void menu_setColumnHeader(void* menu, String header, uint8_t column)
 	{
-		return static_cast<IMenu*>(menu)->setColumnHeader(StringView(header.buf, header.length), column);
+		static_cast<IMenu*>(menu)->setColumnHeader(StringView(header.buf, header.length), column);
 	}
 
 	GOMPONENT_EXPORT void menu_addCell(void* menu, String itemText, uint8_t column)
 	{
-		return static_cast<IMenu*>(menu)->addCell(StringView(itemText.buf, itemText.length), column);
+		static_cast<IMenu*>(menu)->addCell(StringView(itemText.buf, itemText.length), column);
 	}
 
 	GOMPONENT_EXPORT void menu_disableRow(void* menu, uint8_t row)
 	{
-		return static_cast<IMenu*>(menu)->disableRow(row);
+		static_cast<IMenu*>(menu)->disableRow(row);
 	}
 
 	GOMPONENT_EXPORT unsigned char menu_isRowEnabled(void* menu, uint8_t row)
@@ -61,7 +59,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void menu_disable(void* menu)
 	{
-		return static_cast<IMenu*>(menu)->disable();
+		static_cast<IMenu*>(menu)->disable();
 	}
 
 	GOMPONENT_EXPORT unsigned char menu_isEnabled(void* menu)
@@ -105,12 +103,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void menu_showForPlayer(void* menu, void* player)
 	{
-		return static_cast<IMenu*>(menu)->showForPlayer(*static_cast<IPlayer*>(player));
+		static_cast<IMenu*>(menu)->showForPlayer(*static_cast<IPlayer*>(player));
 	}
 
 	GOMPONENT_EXPORT void menu_hideForPlayer(void* menu, void* player)
 	{
-		return static_cast<IMenu*>(menu)->hideForPlayer(*static_cast<IPlayer*>(player));
+		static_cast<IMenu*>(menu)->hideForPlayer(*static_cast<IPlayer*>(player));
 	}
 
 #ifdef __cplusplus

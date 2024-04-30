@@ -12,7 +12,7 @@ extern "C"
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getFloat(key) = value;
+			*gamemode->config->getFloat(StringView(key.buf, key.length)) = value;
 		}
 	}
 
@@ -22,7 +22,7 @@ extern "C"
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getInt(key) = value;
+			*gamemode->config->getInt(StringView(key.buf, key.length)) = value;
 		}
 	}
 
@@ -32,7 +32,7 @@ extern "C"
 
 		if (gamemode->config)
 		{
-			*gamemode->config->getBool(key) = value != 0;
+			*gamemode->config->getBool(StringView(key.buf, key.length)) = value != 0;
 		}
 	}
 
@@ -91,7 +91,7 @@ extern "C"
 
 		if (gamemode->config)
 		{
-			return *gamemode->config->isBanned(entry) ? 1 : 0;
+			return gamemode->config->isBanned(entry) ? 1 : 0;
 		}
 
 		return 0;

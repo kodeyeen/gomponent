@@ -18,7 +18,10 @@ extern "C"
 		{
 			ITextLabel* textlabel = textlabels->create(StringView(text.buf, text.length), Colour::FromRGBA(colour), Vector3(posX, posY, posZ), drawDist, vw, los != 0);
 
-			return static_cast<void*>(textlabel);
+			if (textlabel)
+			{
+				return static_cast<void*>(textlabel);
+			}
 		}
 
 		return NULL;
@@ -37,7 +40,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void textLabel_setText(void* textLabel, String text)
 	{
-		return static_cast<ITextLabel*>(textLabel)->setText(StringView(text.buf, text.length));
+		static_cast<ITextLabel*>(textLabel)->setText(StringView(text.buf, text.length));
 	}
 
 	GOMPONENT_EXPORT String textLabel_getText(void* textLabel)
@@ -49,7 +52,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void textLabel_setColour(void* textLabel, uint32_t colour)
 	{
-		return static_cast<ITextLabel*>(textLabel)->setColour(Colour::FromRGBA(colour));
+		static_cast<ITextLabel*>(textLabel)->setColour(Colour::FromRGBA(colour));
 	}
 
 	GOMPONENT_EXPORT uint32_t textLabel_getColour(void* textLabel)
@@ -59,7 +62,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void textLabel_setDrawDistance(void* textLabel, float drawDist)
 	{
-		return static_cast<ITextLabel*>(textLabel)->setDrawDistance(drawDist);
+		static_cast<ITextLabel*>(textLabel)->setDrawDistance(drawDist);
 	}
 
 	GOMPONENT_EXPORT float textLabel_getDrawDistance(void* textLabel)
@@ -69,12 +72,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void textLabel_attachToPlayer(void* textLabel, void* player, float offsetX, float offsetY, float offsetZ)
 	{
-		return static_cast<ITextLabel*>(textLabel)->attachToPlayer(*static_cast<IPlayer*>(player), Vector3(offsetX, offsetY, offsetZ));
+		static_cast<ITextLabel*>(textLabel)->attachToPlayer(*static_cast<IPlayer*>(player), Vector3(offsetX, offsetY, offsetZ));
 	}
 
 	GOMPONENT_EXPORT void textLabel_attachToVehicle(void* textLabel, void* vehicle, float offsetX, float offsetY, float offsetZ)
 	{
-		return static_cast<ITextLabel*>(textLabel)->attachToVehicle(*static_cast<IVehicle*>(vehicle), Vector3(offsetX, offsetY, offsetZ));
+		static_cast<ITextLabel*>(textLabel)->attachToVehicle(*static_cast<IVehicle*>(vehicle), Vector3(offsetX, offsetY, offsetZ));
 	}
 
 	GOMPONENT_EXPORT TextLabelAttachmentData textLabel_getAttachmentData(void* textLabel)
@@ -82,19 +85,19 @@ extern "C"
 		return static_cast<ITextLabel*>(textLabel)->getAttachmentData();
 	}
 
-	GOMPONENT_EXPORT void textLabel_detachFromPlayer(void* textLabel, void* player, float posX, float posY, float posZ)
+	GOMPONENT_EXPORT void textLabel_detachFromPlayer(void* textLabel, float posX, float posY, float posZ)
 	{
-		return static_cast<ITextLabel*>(textLabel)->detachFromPlayer(*static_cast<IPlayer*>(player), Vector3(posX, posY, posZ));
+		static_cast<ITextLabel*>(textLabel)->detachFromPlayer(Vector3(posX, posY, posZ));
 	}
 
-	GOMPONENT_EXPORT void textLabel_detachFromVehicle(void* textLabel, void* vehicle, float posX, float posY, float posZ)
+	GOMPONENT_EXPORT void textLabel_detachFromVehicle(void* textLabel, float posX, float posY, float posZ)
 	{
-		return static_cast<ITextLabel*>(textLabel)->attachToVehicle(*static_cast<IVehicle*>(vehicle), Vector3(posX, posY, posZ));
+		static_cast<ITextLabel*>(textLabel)->detachFromVehicle(Vector3(posX, posY, posZ));
 	}
 
 	GOMPONENT_EXPORT void textLabel_setTestLOS(void* textLabel, unsigned char status)
 	{
-		return static_cast<ITextLabel*>(textLabel)->setTestLOS(status != 0);
+		static_cast<ITextLabel*>(textLabel)->setTestLOS(status != 0);
 	}
 
 	GOMPONENT_EXPORT unsigned char textLabel_getTestLOS(void* textLabel)
@@ -104,14 +107,14 @@ extern "C"
 
 	GOMPONENT_EXPORT unsigned char textLabel_isStreamedInForPlayer(void* textLabel, void* player)
 	{
-		return static_cast<ITextLabel*>(textLabel)->isStreamedInForPlayer() ? 1 : 0;
+		return static_cast<ITextLabel*>(textLabel)->isStreamedInForPlayer(*static_cast<IPlayer*>(player)) ? 1 : 0;
 	}
 
 	// entity
 
 	GOMPONENT_EXPORT void textLabel_setPosition(void* textLabel, float posX, float posY, float posZ)
 	{
-		return static_cast<ITextLabel*>(textLabel)->setPosition(Vector3(posX, posY, posZ));
+		static_cast<ITextLabel*>(textLabel)->setPosition(Vector3(posX, posY, posZ));
 	}
 
 	GOMPONENT_EXPORT Vector3 textLabel_getPosition(void* textLabel)
@@ -121,7 +124,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void textLabel_setVirtualWorld(void* textLabel, int vw)
 	{
-		return static_cast<ITextLabel*>(textLabel)->setVirtualWorld(vw);
+		static_cast<ITextLabel*>(textLabel)->setVirtualWorld(vw);
 	}
 
 	GOMPONENT_EXPORT int textLabel_getVirtualWorld(void* textLabel)

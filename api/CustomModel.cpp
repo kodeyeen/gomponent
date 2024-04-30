@@ -17,7 +17,7 @@ extern "C"
 
 		if (models)
 		{
-			return models->addCustomModel(type, id, baseId, dffName, txdName, virtualWorld, timeOn, timeOff) ? 1 : 0;
+			return models->addCustomModel(ModelType(type), id, baseId, StringView(dffName.buf, dffName.length), StringView(txdName.buf, txdName.length), virtualWorld, timeOn, timeOff) ? 1 : 0;
 		}
 
 		return 0;
@@ -30,14 +30,14 @@ extern "C"
 
 		if (models)
 		{
-			StringView nameView models->getModelNameFromChecksum(crc);
-			return {nameView.buf, nameView.length};
+			StringView nameView = models->getModelNameFromChecksum(crc);
+			return { nameView.data(), nameView.length() };
 		}
 
 		return {NULL, 0};
 	}
 
-	GOMPONENT_EXPORT unsigned char customModel_getPath(uint32_t modelId, String* dffPath, String* txdPath)
+	GOMPONENT_EXPORT unsigned char customModel_getPath(int32_t modelId, String* dffPath, String* txdPath)
 	{
 		auto gamemode = Gomponent::Get()->getGamemode();
 		ICustomModelsComponent* models = gamemode->models;
@@ -50,7 +50,7 @@ extern "C"
 		StringView dffPathView {};
 		StringView txdPathView {};
 
-		bool status = models->getCustomModelPath(modelId, dffPathView, txtPathView);
+		bool status = models->getCustomModelPath(modelId, dffPathView, txdPathView);
 
 		*dffPath = { dffPathView.data(), dffPathView.length() };
 		*txdPath = { txdPathView.data(), txdPathView.length() };

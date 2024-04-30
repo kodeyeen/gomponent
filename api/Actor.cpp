@@ -31,7 +31,7 @@ extern "C"
 			IActor* actor = actors->create(skin, Vector3(posX, posY, posZ), angle);
 			if (actor)
 			{
-				return actor;
+				return static_cast<void*>(actor);
 			}
 		}
 
@@ -47,8 +47,6 @@ extern "C"
 		{
 			return actors->release(static_cast<IActor*>(actor)->getID());
 		}
-
-		return NULL;
 	}
 
 	GOMPONENT_EXPORT void actor_setSkin(void* actor, int skin)
@@ -83,10 +81,10 @@ extern "C"
 
 		return {
 			anim.delta,
-			anim.loop ? 1 : 0,
-			anim.lockX ? 1 : 0,
-			anim.lockY ? 1 : 0,
-			anim.freeze ? 1 : 0,
+			(unsigned char)(anim.loop ? 1 : 0),
+			(unsigned char)(anim.lockX ? 1 : 0),
+			(unsigned char)(anim.lockY ? 1 : 0),
+			(unsigned char)(anim.freeze ? 1 : 0),
 			anim.time,
 			animLib,
 			animName

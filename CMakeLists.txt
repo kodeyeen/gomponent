@@ -17,15 +17,22 @@ add_library(${PROJECT_NAME} SHARED
 	Gamemode.cpp
 	
 	"api/api.hpp"
+	"api/Actor.cpp"
+	"api/Checkpoint.cpp"
 	"api/Class.cpp"
 	"api/Config.cpp"
+	"api/CustomModel.cpp"
+	"api/GangZone.cpp"
+	"api/Menu.cpp"
+	"api/Object.cpp"
 	"api/Pickup.cpp"
 	"api/Player.cpp"
 	"api/Server.cpp"
 	"api/TextDraw.cpp"
+	"api/TextLabel.cpp"
 	"api/Vehicle.cpp"
 	"api/api.cpp"
- "api/Object.cpp")
+)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     OMP-SDK
