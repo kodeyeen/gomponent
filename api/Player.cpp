@@ -324,7 +324,7 @@ extern "C"
 		return static_cast<IPlayer*>(player)->lastPlayedSound();
 	}
 
-	GOMPONENT_EXPORT void player_playAudio(void* player, String url, int usePos, float posX, float posY, float posZ, float distance)
+	GOMPONENT_EXPORT void player_playAudio(void* player, String url, unsigned char usePos, float posX, float posY, float posZ, float distance)
 	{
 		return static_cast<IPlayer*>(player)->playAudio(StringView(url.buf, url.length), usePos != 0, Vector3(posX, posY, posZ), distance);
 	}
