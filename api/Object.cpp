@@ -34,9 +34,9 @@ extern "C"
 	{
 		IObjectsComponent* objects = Gomponent::Get()->objects;
 
-		if (component)
+		if (objects)
 		{
-			IObject* object = component->create(modelId, Vector3(posX, posY, posZ), Vector3(rotX, rotY, rotZ), drawDistance);
+			IObject* object = objects->create(modelId, Vector3(posX, posY, posZ), Vector3(rotX, rotY, rotZ), drawDistance);
 			if (object)
 			{
 				return static_cast<void*>(object);
@@ -49,9 +49,9 @@ extern "C"
 	{
 		IObjectsComponent* objects = Gomponent::Get()->objects;
 
-		if (component)
+		if (objects)
 		{
-			component->release(static_cast<IObject*>(object)->getID());
+			objects->release(static_cast<IObject*>(object)->getID());
 		}
 	}
 
@@ -76,9 +76,9 @@ extern "C"
 	{
 		IObjectsComponent* objects = Gomponent::Get()->objects;
 
-		if (component)
+		if (objects)
 		{
-			return component->setDefaultCameraCollision(set != 0);
+			return objects->setDefaultCameraCollision(set != 0);
 		}
 	}
 

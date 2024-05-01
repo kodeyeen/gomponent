@@ -11,19 +11,32 @@ extern "C"
 
 	GOMPONENT_EXPORT void* gangZone_create(float minX, float minY, float maxX, float maxY)
 	{
-		IGangZonesComponent* component = Gomponent::Get()->gangzones;
+		IGangZonesComponent* gangzones = Gomponent::Get()->gangzones;
 
-		if (component)
+		if (gangzones)
 		{
+			int id = gangzones->reserveLegacyID();
+			if (id == INVALID_GANG_ZONE_ID)
+			{
+				return NULL;
+			}
+
 			GangZonePos pos;
 			pos.min.x = truncf(minX);
 			pos.min.y = truncf(minY);
 			pos.max.x = truncf(maxX);
 			pos.max.y = truncf(maxY);
 
-			IGangZone* gangZone = component->create(pos);
-
-			return static_cast<void*>(gangZone);
+			IGangZone* gz = gangzones->create(pos);
+			if (gz)
+			{
+				gangzones->setLegacyID(id, gz->getID());
+				return static_cast<void*>(gz);
+			}
+			else
+			{
+				gangzones->releaseLegacyID(id);
+			}
 		}
 
 		return NULL;
@@ -31,11 +44,18 @@ extern "C"
 
 	GOMPONENT_EXPORT void gangZone_release(void* gangZone)
 	{
-		IGangZonesComponent* component = Gomponent::Get()->gangzones;
+		IGangZonesComponent* gangzones = Gomponent::Get()->gangzones;
 
-		if (component)
+		if (gangzones)
 		{
-			component->release(static_cast<IGangZone*>(gangZone)->getID());
+			int legacyid = static_cast<IGangZone*>(gangZone)->getID();
+			int realid = gangzones->fromLegacyID(legacyid);
+
+			if (realid)
+			{
+				gangzones->release(realid);
+				gangzones->releaseLegacyID(legacyid);
+			}
 		}
 	}
 
@@ -156,11 +176,9 @@ extern "C"
 
 	GOMPONENT_EXPORT void* playerGangZone_create(void* player, float minX, float minY, float maxX, float maxY)
 	{
-		IGangZonesComponent* component = Gomponent::Get()->gangzones;
-
-		auto data = queryExtension<IPlayerGangZoneData>(static_cast<IPlayer*>(player));
-
-		if (component && data)
+		IGangZonesComponent* gangzones = Gomponent::Get()->gangzones;
+		IPlayerGangZoneData* data = queryExtension<IPlayerGangZoneData>(static_cast<IPlayer*>(player));
+		if (gangzones && data)
 		{
 			int id = data->reserveLegacyID();
 			if (id == INVALID_GANG_ZONE_ID)
@@ -172,19 +190,18 @@ extern "C"
 			pos.min = Vector2(minX, minY);
 			pos.max = Vector2(maxX, maxY);
 
-			IGangZone* gz = component->create(pos);
+			IGangZone* gz = gangzones->create(pos);
 			if (gz)
 			{
 				data->setLegacyID(id, gz->getID());
 				gz->setLegacyPlayer(static_cast<IPlayer*>(player));
-				return static_cast<void*>(id);
+				return static_cast<void*>(gz);
 			}
 			else
 			{
 				data->releaseLegacyID(id);
 			}
 		}
-
 		return NULL;
 	}
 
@@ -197,6 +214,7 @@ extern "C"
 		{
 			int legacyid = data->toLegacyID(static_cast<IGangZone*>(gangZone)->getID());
 			int realid = data->fromLegacyID(legacyid);
+
 			if (realid)
 			{
 				gangzones->release(realid);
