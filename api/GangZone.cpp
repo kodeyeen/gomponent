@@ -202,6 +202,7 @@ extern "C"
 				data->releaseLegacyID(id);
 			}
 		}
+
 		return NULL;
 	}
 

@@ -14,11 +14,22 @@ extern "C"
 
 		if (pickups)
 		{
+			int id = pickups->reserveLegacyID();
+			if (id == INVALID_PICKUP_ID)
+			{
+				return NULL;
+			}
+
 			IPickup* pickup = pickups->create(modelId, type, Vector3(posX, posY, posZ), virtualWorld, false);
 
 			if (pickup)
 			{
+				pickups->setLegacyID(id, pickup->getID());
 				return static_cast<void*>(pickup);
+			}
+			else
+			{
+				pickups->releaseLegacyID(id);
 			}
 		}
 
@@ -31,7 +42,13 @@ extern "C"
 
 		if (pickups)
 		{
-			pickups->release(static_cast<IPickup*>(pickup)->getID());
+			int legacyid = static_cast<IPickup*>(pickup)->getID();
+			int realid = pickups->fromLegacyID(legacyid);
+			if (realid)
+			{
+				pickups->release(realid);
+				pickups->releaseLegacyID(legacyid);
+			}
 		}
 	}
 
@@ -95,6 +112,54 @@ extern "C"
 	GOMPONENT_EXPORT int pickup_getVirtualWorld(void* pickup)
 	{
 		return static_cast<IPickup*>(pickup)->getVirtualWorld();
+	}
+
+	// PlayerPickup
+
+	GOMPONENT_EXPORT void* playerPickup_create(void* player, int modelId, uint8_t type, float posX, float posY, float posZ, uint32_t virtualWorld, int isStatic)
+	{
+		IPickupsComponent* pickups = Gomponent::Get()->pickups;
+		IPlayerPickupData* data = queryExtension<IPlayerPickupData>(static_cast<IPlayer*>(player));
+
+		if (pickups && data)
+		{
+			int id = data->reserveLegacyID();
+			if (id == INVALID_PICKUP_ID)
+			{
+				return NULL;
+			}
+
+			IPickup* pickup = pickups->create(modelId, type, Vector3(posX, posY, posZ), virtualWorld, false);
+			if (pickup)
+			{
+				data->setLegacyID(id, pickup->getID());
+				pickup->setLegacyPlayer(static_cast<IPlayer*>(player));
+				return static_cast<void*>(pickup);
+			}
+			else
+			{
+				data->releaseLegacyID(id);
+			}
+		}
+
+		return NULL;
+	}
+
+	GOMPONENT_EXPORT void playerPickup_release(void* pickup, void* player)
+	{
+		IPickupsComponent* pickups = Gomponent::Get()->pickups;
+		IPlayerPickupData* data = queryExtension<IPlayerPickupData>(static_cast<IPlayer*>(player));
+
+		if (pickups && data)
+		{
+			int legacyid = static_cast<IPickup*>(pickup)->getID();
+			int realid = data->fromLegacyID(legacyid);
+			if (realid)
+			{
+				pickups->release(realid);
+				data->releaseLegacyID(legacyid);
+			}
+		}
 	}
 
 #ifdef __cplusplus
