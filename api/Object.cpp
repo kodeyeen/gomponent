@@ -272,7 +272,7 @@ extern "C"
 
 		if (data)
 		{
-			IPlayerObject* object = data->get(id)
+			IPlayerObject* object = data->get(id);
 
 			if (object)
 			{
