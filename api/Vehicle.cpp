@@ -12,8 +12,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void* vehicle_create(int isStatic, int modelID, float x, float y, float z, float angle, int colour1, int colour2, int respawnDelay, int addSiren)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IVehiclesComponent* vehicles = gamemode->vehicles;
+		IVehiclesComponent* vehicles = Gomponent::Get()->vehicles;
 
 		IVehicle* vehicle = vehicles->create(bool(isStatic), modelID, Vector3(x, y, z), angle, colour1, colour2, Seconds(respawnDelay), bool(addSiren));
 
@@ -22,22 +21,26 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_release(void* vehicle)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IVehiclesComponent* vehicles = gamemode->vehicles;
+		IVehiclesComponent* vehicles = Gomponent::Get()->vehicles;
 
-		return vehicles->release(static_cast<IVehicle*>(vehicle)->getID());
+		if (vehicles)
+		{
+			vehicles->release(static_cast<IVehicle*>(vehicle)->getID());
+		}
 	}
 
 	GOMPONENT_EXPORT void* vehicle_getByID(int id)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IVehiclesComponent* vehicles = gamemode->vehicles;
+		IVehiclesComponent* vehicles = Gomponent::Get()->vehicles;
 
 		if (vehicles)
 		{
 			IVehicle* vehicle = vehicles->get(id);
 
-			return static_cast<void*>(vehicle);
+			if (vehicle)
+			{
+				return static_cast<void*>(vehicle);
+			}
 		}
 
 		return NULL;

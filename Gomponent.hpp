@@ -23,12 +23,22 @@ class Gomponent final
 	, public Singleton<Gomponent>
 {
 private:
-	// Hold a reference to the main server core.
-	ICore* core_ = nullptr;
-	IPlayerPool* players = nullptr;
-
 	Gamemode* gamemode_ = nullptr;
 public:
+	ICore* core = nullptr;
+	IConfig* config = nullptr;
+	IPlayerPool* players = nullptr;
+	IActorsComponent* actors = nullptr;
+	IClassesComponent* classes = nullptr;
+	ICustomModelsComponent* models = nullptr;
+	IGangZonesComponent* gangzones = nullptr;
+	IMenusComponent* menus = nullptr;
+	IObjectsComponent* objects = nullptr;
+	IPickupsComponent* pickups = nullptr;
+	ITextDrawsComponent* textdraws = nullptr;
+	ITextLabelsComponent* textlabels = nullptr;
+	IVehiclesComponent* vehicles = nullptr;
+
 	Gamemode* getGamemode();
 
 	// Required component methods.

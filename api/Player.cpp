@@ -45,14 +45,17 @@ extern "C"
 
 	GOMPONENT_EXPORT void* player_getByID(int id)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPlayerPool* players = gamemode->players;
+		IPlayerPool* players = Gomponent::Get()->players;
 
 		if (players)
 		{
 			IPlayer* player = players->get(id);
 
-			return static_cast<void*>(player);
+			if (player)
+			{
+				return static_cast<void*>(player);
+			}
+
 		}
 
 		return NULL;

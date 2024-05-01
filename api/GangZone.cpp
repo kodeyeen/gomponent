@@ -11,8 +11,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void* gangZone_create(float minX, float minY, float maxX, float maxY)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IGangZonesComponent* component = gamemode->gangzones;
+		IGangZonesComponent* component = Gomponent::Get()->gangzones;
 
 		if (component)
 		{
@@ -32,23 +31,21 @@ extern "C"
 
 	GOMPONENT_EXPORT void gangZone_release(void* gangZone)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IGangZonesComponent* component = gamemode->gangzones;
+		IGangZonesComponent* component = Gomponent::Get()->gangzones;
 
 		if (component)
 		{
-			return component->release(static_cast<IGangZone*>(gangZone)->getID());
+			component->release(static_cast<IGangZone*>(gangZone)->getID());
 		}
 	}
 
 	GOMPONENT_EXPORT void gangZone_useCheck(void* gangZone, unsigned char use)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IGangZonesComponent* component = gamemode->gangzones;
+		IGangZonesComponent* component = Gomponent::Get()->gangzones;
 
 		if (component)
 		{
-			return component->useGangZoneCheck(*static_cast<IGangZone*>(gangZone), use != 0);
+			component->useGangZoneCheck(*static_cast<IGangZone*>(gangZone), use != 0);
 		}
 	}
 
@@ -64,13 +61,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void gangZone_showForPlayer(void* gangZone, void* player, uint32_t colour)
 	{
-		return static_cast<IGangZone*>(gangZone)->showForPlayer(*static_cast<IPlayer*>(player), Colour::FromRGBA(colour));
+		static_cast<IGangZone*>(gangZone)->showForPlayer(*static_cast<IPlayer*>(player), Colour::FromRGBA(colour));
 	}
 
 	GOMPONENT_EXPORT void gangZone_showForAll(void* gangZone, uint32_t colour)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPlayerPool* players = gamemode->players;
+		IPlayerPool* players = Gomponent::Get()->players;
 
 		for (IPlayer* player : players->entries())
 		{
@@ -80,13 +76,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void gangZone_hideForPlayer(void* gangZone, void* player)
 	{
-		return static_cast<IGangZone*>(gangZone)->hideForPlayer(*static_cast<IPlayer*>(player));
+		static_cast<IGangZone*>(gangZone)->hideForPlayer(*static_cast<IPlayer*>(player));
 	}
 
 	GOMPONENT_EXPORT void gangZone_hideForAll(void* gangZone)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPlayerPool* players = gamemode->players;
+		IPlayerPool* players = Gomponent::Get()->players;
 
 		for (IPlayer* player : players->entries())
 		{
@@ -101,8 +96,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void gangZone_flashForAll(void* gangZone, uint32_t colour)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPlayerPool* players = gamemode->players;
+		IPlayerPool* players = Gomponent::Get()->players;
 
 		for (IPlayer* player : players->entries())
 		{
@@ -117,8 +111,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void gangZone_stopFlashForAll(void* gangZone)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPlayerPool* players = gamemode->players;
+		IPlayerPool* players = Gomponent::Get()->players;
 
 		for (IPlayer* player : players->entries())
 		{
@@ -157,6 +150,59 @@ extern "C"
 	GOMPONENT_EXPORT uint32_t gangZone_getColourForPlayer(void* gangZone, void* player)
 	{
 		return static_cast<IGangZone*>(gangZone)->getColourForPlayer(*static_cast<IPlayer*>(player)).RGBA();
+	}
+
+	// Player GangZone
+
+	GOMPONENT_EXPORT void* playerGangZone_create(void* player, float minX, float minY, float maxX, float maxY)
+	{
+		IGangZonesComponent* component = Gomponent::Get()->gangzones;
+
+		auto data = queryExtension<IPlayerGangZoneData>(static_cast<IPlayer*>(player));
+
+		if (component && data)
+		{
+			int id = data->reserveLegacyID();
+			if (id == INVALID_GANG_ZONE_ID)
+			{
+				return NULL;
+			}
+
+			GangZonePos pos;
+			pos.min = Vector2(minX, minY);
+			pos.max = Vector2(maxX, maxY);
+
+			IGangZone* gz = component->create(pos);
+			if (gz)
+			{
+				data->setLegacyID(id, gz->getID());
+				gz->setLegacyPlayer(static_cast<IPlayer*>(player));
+				return static_cast<void*>(id);
+			}
+			else
+			{
+				data->releaseLegacyID(id);
+			}
+		}
+
+		return NULL;
+	}
+
+	GOMPONENT_EXPORT void playerGangZone_release(void* gangZone, void* player)
+	{
+		IPlayerGangZoneData* data = queryExtension<IPlayerGangZoneData>(static_cast<IPlayer*>(player));
+		IGangZonesComponent* gangzones = Gomponent::Get()->gangzones;
+
+		if (data && gangzones)
+		{
+			int legacyid = data->toLegacyID(static_cast<IGangZone*>(gangZone)->getID());
+			int realid = data->fromLegacyID(legacyid);
+			if (realid)
+			{
+				gangzones->release(realid);
+				data->releaseLegacyID(legacyid);
+			}
+		}
 	}
 
 #ifdef __cplusplus

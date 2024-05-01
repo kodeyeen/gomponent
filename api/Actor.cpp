@@ -23,8 +23,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void* actor_create(int skin, float posX, float posY, float posZ, float angle)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IActorsComponent* actors = gamemode->actors;
+		IActorsComponent* actors = Gomponent::Get()->actors;
 
 		if (actors)
 		{
@@ -40,8 +39,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_release(void* actor)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IActorsComponent* actors = gamemode->actors;
+		IActorsComponent* actors = Gomponent::Get()->actors;
 
 		if (actors)
 		{
@@ -51,7 +49,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_setSkin(void* actor, int skin)
 	{
-		return static_cast<IActor*>(actor)->setSkin(skin);
+		static_cast<IActor*>(actor)->setSkin(skin);
 	}
 
 	GOMPONENT_EXPORT int actor_getSkin(void* actor)
@@ -61,7 +59,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_applyAnimation(void* actor, float delta, unsigned char loop, unsigned char lockX, unsigned char lockY, unsigned char freeze, uint32_t time, String lib, String name)
 	{
-		return static_cast<IActor*>(actor)->applyAnimation(AnimationData(
+		static_cast<IActor*>(actor)->applyAnimation(AnimationData(
 			delta,
 			loop != 0,
 			lockX != 0,
@@ -93,12 +91,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_clearAnimations(void* actor)
 	{
-		return static_cast<IActor*>(actor)->clearAnimations();
+		static_cast<IActor*>(actor)->clearAnimations();
 	}
 
 	GOMPONENT_EXPORT void actor_setHealth(void* actor, float health)
 	{
-		return static_cast<IActor*>(actor)->setHealth(health);
+		static_cast<IActor*>(actor)->setHealth(health);
 	}
 
 	GOMPONENT_EXPORT float actor_getHealth(void* actor)
@@ -108,7 +106,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_setInvulnerable(void* actor, unsigned char invuln)
 	{
-		return static_cast<IActor*>(actor)->setInvulnerable(invuln != 0);
+		static_cast<IActor*>(actor)->setInvulnerable(invuln != 0);
 	}
 
 	GOMPONENT_EXPORT unsigned char actor_isInvulnerable(void* actor)
@@ -128,7 +126,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_setPosition(void* actor, float posX, float posY, float posZ)
 	{
-		return static_cast<IActor*>(actor)->setPosition(Vector3(posX, posY, posZ));
+		static_cast<IActor*>(actor)->setPosition(Vector3(posX, posY, posZ));
 	}
 
 	GOMPONENT_EXPORT Vector3 actor_getPosition(void* actor)
@@ -138,7 +136,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_setVirtualWorld(void* actor, int vw)
 	{
-		return static_cast<IActor*>(actor)->setVirtualWorld(vw);
+		static_cast<IActor*>(actor)->setVirtualWorld(vw);
 	}
 
 	GOMPONENT_EXPORT int actor_getVirtualWorld(void* actor)
@@ -148,7 +146,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void actor_setFacingAngle(void* actor, float angle)
 	{
-		return static_cast<IActor*>(actor)->setRotation(Vector3(0.0f, 0.0f, angle));
+		static_cast<IActor*>(actor)->setRotation(Vector3(0.0f, 0.0f, angle));
 	}
 
 	GOMPONENT_EXPORT float actor_getFacingAngle(void* actor)

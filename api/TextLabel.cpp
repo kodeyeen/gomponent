@@ -11,8 +11,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void* textLabel_create(String text, uint32_t colour, float posX, float posY, float posZ, float drawDist, int vw, unsigned char los)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ITextLabelsComponent* textlabels = gamemode->textlabels;
+		ITextLabelsComponent* textlabels = Gomponent::Get()->textlabels;
 
 		if (textlabels)
 		{
@@ -29,8 +28,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void textLabel_release(void* textLabel)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ITextLabelsComponent* textlabels = gamemode->textlabels;
+		ITextLabelsComponent* textlabels = Gomponent::Get()->textlabels;
 
 		if (textlabels)
 		{

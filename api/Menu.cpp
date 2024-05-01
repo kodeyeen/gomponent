@@ -11,15 +11,15 @@ extern "C"
 
 	GOMPONENT_EXPORT void* menu_create(String title, float posX, float posY, uint8_t columns, float col1Width, float col2Width)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IMenusComponent* menus = gamemode->menus;
+		IMenusComponent* menus = Gomponent::Get()->menus;
 
 		if (menus)
 		{
 			IMenu* menu = menus->create(StringView(title.buf, title.length), Vector2(posX, posY), columns, col1Width, col2Width);
+
 			if (menu)
 			{
-				return menu;
+				return static_cast<void*>(menu);
 			}
 		}
 
@@ -28,8 +28,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void menu_release(void* menu)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IMenusComponent* menus = gamemode->menus;
+		IMenusComponent* menus = Gomponent::Get()->menus;
 
 		if (menus)
 		{

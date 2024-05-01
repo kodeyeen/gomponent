@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <sdk.hpp>
 #include <Server/Components/Actors/actors.hpp>
@@ -15,23 +14,11 @@
 #include <Server/Components/Vehicles/vehicles.hpp>
 #include <Windows.h>
 
-class Gamemode
+#include "Singleton.hpp"
+
+class Gamemode final : public Singleton<Gamemode>
 {
 public:
-	ICore* core;
-	IConfig* config;
-	IPlayerPool* players;
-	IActorsComponent* actors;
-	IClassesComponent* classes;
-	ICustomModelsComponent* models;
-	IGangZonesComponent* gangzones;
-	IMenusComponent* menus;
-	IObjectsComponent* objects;
-	IPickupsComponent* pickups;
-	ITextDrawsComponent* textdraws;
-	ITextLabelsComponent* textlabels;
-	IVehiclesComponent* vehicles;
-
 	Gamemode(const std::string& path);
 	~Gamemode();
 	void init();

@@ -12,8 +12,7 @@ extern "C"
 
 	GOMPONENT_EXPORT unsigned char customModel_add(uint8_t type, int32_t id, int32_t baseId, String dffName, String txdName, int32_t virtualWorld, uint8_t timeOn, uint8_t timeOff)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ICustomModelsComponent* models = gamemode->models;
+		ICustomModelsComponent* models = Gomponent::Get()->models;
 
 		if (models)
 		{
@@ -25,8 +24,7 @@ extern "C"
 
 	GOMPONENT_EXPORT String customModel_getNameFromCheckSum(uint32_t crc)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ICustomModelsComponent* models = gamemode->models;
+		ICustomModelsComponent* models = Gomponent::Get()->models;
 
 		if (models)
 		{
@@ -39,8 +37,7 @@ extern "C"
 
 	GOMPONENT_EXPORT unsigned char customModel_getPath(int32_t modelId, String* dffPath, String* txdPath)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ICustomModelsComponent* models = gamemode->models;
+		ICustomModelsComponent* models = Gomponent::Get()->models;
 
 		if (!models)
 		{

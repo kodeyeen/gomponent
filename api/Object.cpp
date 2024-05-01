@@ -32,8 +32,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void* object_create(int modelId, float posX, float posY, float posZ, float rotX, float rotY, float rotZ, float drawDistance)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IObjectsComponent* component = gamemode->objects;
+		IObjectsComponent* objects = Gomponent::Get()->objects;
 
 		if (component)
 		{
@@ -48,8 +47,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void object_release(void* object)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IObjectsComponent* component = gamemode->objects;
+		IObjectsComponent* objects = Gomponent::Get()->objects;
 
 		if (component)
 		{
@@ -59,14 +57,16 @@ extern "C"
 
 	GOMPONENT_EXPORT void* object_getByID(int id)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IObjectsComponent* objects = gamemode->objects;
+		IObjectsComponent* objects = Gomponent::Get()->objects;
 
 		if (objects)
 		{
 			IObject* object = objects->get(id);
 
-			return static_cast<void*>(object);
+			if (object)
+			{
+				return static_cast<void*>(object);
+			}
 		}
 
 		return NULL;
@@ -74,8 +74,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void object_setDefaultCameraCollision(unsigned char set)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IObjectsComponent* component = gamemode->objects;
+		IObjectsComponent* objects = Gomponent::Get()->objects;
 
 		if (component)
 		{
@@ -133,7 +132,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void object_stop(void* object)
 	{
-		return static_cast<IObject*>(object)->stop();
+		static_cast<IObject*>(object)->stop();
 	}
 
 	GOMPONENT_EXPORT ObjectMoveData object_getMovingData(void* object)
@@ -143,12 +142,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void object_attachToVehicle(void* object, void* vehicle, float offsetX, float offsetY, float offsetZ, float rotX, float rotY, float rotZ)
 	{
-		return static_cast<IObject*>(object)->attachToVehicle(*static_cast<IVehicle*>(vehicle), Vector3(offsetX, offsetY, offsetZ), Vector3(rotX, rotY, rotZ));
+		static_cast<IObject*>(object)->attachToVehicle(*static_cast<IVehicle*>(vehicle), Vector3(offsetX, offsetY, offsetZ), Vector3(rotX, rotY, rotZ));
 	}
 
 	GOMPONENT_EXPORT void object_resetAttachment(void* object)
 	{
-		return static_cast<IObject*>(object)->resetAttachment();
+		static_cast<IObject*>(object)->resetAttachment();
 	}
 
 	GOMPONENT_EXPORT ObjectAttachmentData object_getAttachmentData(void* object)
@@ -205,29 +204,29 @@ extern "C"
 
 	GOMPONENT_EXPORT void object_setMaterial(void* object, uint32_t materialIndex, int model, String textureLibrary, String textureName, uint32_t colour)
 	{
-		return static_cast<IObject*>(object)->setMaterial(materialIndex, model, StringView(textureLibrary.buf, textureLibrary.length), StringView(textureName.buf, textureName.length), Colour::FromARGB(colour));
+		static_cast<IObject*>(object)->setMaterial(materialIndex, model, StringView(textureLibrary.buf, textureLibrary.length), StringView(textureName.buf, textureName.length), Colour::FromARGB(colour));
 	}
 
 	GOMPONENT_EXPORT void object_setMaterialText(void* object, uint32_t materialIndex, String text, ObjectMaterialSize materialSize, String fontFace, int fontSize, unsigned char bold, uint32_t fontColour, uint32_t backgroundColour, ObjectMaterialTextAlign align)
 	{
-		return static_cast<IObject*>(object)->setMaterialText(materialIndex, StringView(text.buf, text.length), materialSize, StringView(fontFace.buf, fontFace.length), fontSize, bold != 0, Colour::FromARGB(fontColour), Colour::FromARGB(backgroundColour), align);
+		static_cast<IObject*>(object)->setMaterialText(materialIndex, StringView(text.buf, text.length), materialSize, StringView(fontFace.buf, fontFace.length), fontSize, bold != 0, Colour::FromARGB(fontColour), Colour::FromARGB(backgroundColour), align);
 	}
 
 	GOMPONENT_EXPORT void object_attachToPlayer(void* object, void* player, float offsetX, float offsetY, float offsetZ, float rotX, float rotY, float rotZ)
 	{
-		return static_cast<IObject*>(object)->attachToPlayer(*static_cast<IPlayer*>(player), Vector3(offsetX, offsetY, offsetZ), Vector3(rotX, rotY, rotZ));
+		static_cast<IObject*>(object)->attachToPlayer(*static_cast<IPlayer*>(player), Vector3(offsetX, offsetY, offsetZ), Vector3(rotX, rotY, rotZ));
 	}
 
 	GOMPONENT_EXPORT void object_attachToObject(void* object, void* other, float offsetX, float offsetY, float offsetZ, float rotX, float rotY, float rotZ, unsigned char syncRotation)
 	{
-		return static_cast<IObject*>(object)->attachToObject(*static_cast<IObject*>(other), Vector3(offsetX, offsetY, offsetZ), Vector3(rotX, rotY, rotZ), syncRotation != 0);
+		static_cast<IObject*>(object)->attachToObject(*static_cast<IObject*>(other), Vector3(offsetX, offsetY, offsetZ), Vector3(rotX, rotY, rotZ), syncRotation != 0);
 	}
 
 	// entity
 
 	GOMPONENT_EXPORT void object_setPosition(void* object, float posX, float posY, float posZ)
 	{
-		return static_cast<IObject*>(object)->setPosition(Vector3(posX, posY, posZ));
+		static_cast<IObject*>(object)->setPosition(Vector3(posX, posY, posZ));
 	}
 
 	GOMPONENT_EXPORT Vector3 object_getPosition(void* object)
@@ -237,7 +236,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void object_setRotation(void* object, float rotX, float rotY, float rotZ)
 	{
-		return static_cast<IObject*>(object)->setRotation(Vector3(rotX, rotY, rotZ));
+		static_cast<IObject*>(object)->setRotation(Vector3(rotX, rotY, rotZ));
 	}
 
 	GOMPONENT_EXPORT Vector3 object_getRotation(void* object)

@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Gamemode.hpp"
 
 Gamemode::Gamemode(const std::string& path)

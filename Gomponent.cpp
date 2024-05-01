@@ -30,12 +30,11 @@ SemanticVersion Gomponent::componentVersion() const
 void Gomponent::onLoad(ICore* c)
 {
 	// Cache core, listen to player events.
-	core_ = c;
-	players = &core_->getPlayers();
+	players = &c->getPlayers();
 
 	gamemode_ = new Gamemode("./gamemodes/test.dll");
-	gamemode_->core = core_;
-	gamemode_->config = &core_->getConfig();
+	core = c;
+	config = &c->getConfig();
 
 	// Done.
 	// core_->printLn("Gomponent loaded.");
@@ -45,16 +44,15 @@ void Gomponent::onInit(IComponentList* components)
 {
 	// core_->printLn("Gomponent is being initialized.");
 
-	gamemode_->players = players;
-	gamemode_->actors = components->queryComponent<IActorsComponent>();
-	gamemode_->classes = components->queryComponent<IClassesComponent>();
-	gamemode_->gangzones = components->queryComponent<IGangZonesComponent>();
-	gamemode_->menus = components->queryComponent<IMenusComponent>();
-	gamemode_->objects = components->queryComponent<IObjectsComponent>();
-	gamemode_->pickups = components->queryComponent<IPickupsComponent>();
-	gamemode_->textdraws = components->queryComponent<ITextDrawsComponent>();
-	gamemode_->textlabels = components->queryComponent<ITextLabelsComponent>();
-	gamemode_->vehicles = components->queryComponent<IVehiclesComponent>();
+	actors = components->queryComponent<IActorsComponent>();
+	classes = components->queryComponent<IClassesComponent>();
+	gangzones = components->queryComponent<IGangZonesComponent>();
+	menus = components->queryComponent<IMenusComponent>();
+	objects = components->queryComponent<IObjectsComponent>();
+	pickups = components->queryComponent<IPickupsComponent>();
+	textdraws = components->queryComponent<ITextDrawsComponent>();
+	textlabels = components->queryComponent<ITextLabelsComponent>();
+	vehicles = components->queryComponent<IVehiclesComponent>();
 
 	if (players)
 	{
@@ -65,9 +63,9 @@ void Gomponent::onInit(IComponentList* components)
 		players->getPlayerUpdateDispatcher().addEventHandler(PlayerEvents::Get());
 	}
 
-	if (gamemode_->classes)
+	if (classes)
 	{
-		gamemode_->classes->getEventDispatcher().addEventHandler(ClassEvents::Get());
+		classes->getEventDispatcher().addEventHandler(ClassEvents::Get());
 	}
 
 	gamemode_->init();

@@ -11,20 +11,24 @@ extern "C"
 
 	GOMPONENT_EXPORT void* textDraw_create(float posX, float posY, String text)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ITextDrawsComponent* component = gamemode->textdraws;
-		if (component)
+		ITextDrawsComponent* textdraws = Gomponent::Get()->textdraws;
+
+		if (textdraws)
 		{
-			ITextDraw* textdraw = component->create(Vector2(posX, posY), StringView(text.buf, text.length));
-			return static_cast<void*>(textdraw);
+			ITextDraw* textdraw = textdraws->create(Vector2(posX, posY), StringView(text.buf, text.length));
+
+			if (textdraw)
+			{
+				return static_cast<void*>(textdraw);
+			}
 		}
+
 		return NULL;
 	}
 
 	GOMPONENT_EXPORT void textDraw_release(void* textdraw)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		ITextDrawsComponent* textdraws = gamemode->textdraws;
+		ITextDrawsComponent* textdraws = Gomponent::Get()->textdraws;
 
 		if (textdraws)
 		{
@@ -254,7 +258,7 @@ extern "C"
 		return NULL;
 	}
 
-	GOMPONENT_EXPORT void playerTextDraw_release(void* player, void* textdraw)
+	GOMPONENT_EXPORT void playerTextDraw_release(void* textdraw, void* player)
 	{
 		IPlayerTextDrawData* playerTextDraws = queryExtension<IPlayerTextDrawData>(static_cast<IPlayer*>(player));
 		if (playerTextDraws)

@@ -28,8 +28,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void* class_create(ClassData* data)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IClassesComponent* classes = gamemode->classes;
+		IClassesComponent* classes = Gomponent::Get()->classes;
 
 		if (classes)
 		{
@@ -47,6 +46,16 @@ extern "C"
 		}
 
 		return NULL;
+	}
+
+	GOMPONENT_EXPORT void class_release(void* _class)
+	{
+		IClassesComponent* classes = Gomponent::Get()->classes;
+
+		if (classes)
+		{
+			classes->release(static_cast<IClass*>(_class)->getID());
+		}
 	}
 
 	GOMPONENT_EXPORT int class_getID(void* class_)

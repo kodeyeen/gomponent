@@ -8,41 +8,41 @@ extern "C"
 
 	GOMPONENT_EXPORT void server_setModeText(String text)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
+		ICore* core = Gomponent::Get()->core;
 
-		if (gamemode->core)
+		if (core)
 		{
-			gamemode->core->setData(SettableCoreDataType::ModeText, StringView(text.buf, text.length));
+			core->setData(SettableCoreDataType::ModeText, StringView(text.buf, text.length));
 		}
 	}
 
 	GOMPONENT_EXPORT void server_setWeather(int weather)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
+		ICore* core = Gomponent::Get()->core;
 
-		if (gamemode->core)
+		if (core)
 		{
-			gamemode->core->setWeather(weather);
+			core->setWeather(weather);
 		}
 	}
 
 	GOMPONENT_EXPORT void server_setWorldTime(int hours)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
+		ICore* core = Gomponent::Get()->core;
 
-		if (gamemode->core)
+		if (core)
 		{
-			gamemode->core->setWorldTime(Hours(hours));
+			core->setWorldTime(Hours(hours));
 		}
 	}
 
 	GOMPONENT_EXPORT void server_enableStuntBonuses()
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
+		ICore* core = Gomponent::Get()->core;
 
-		if (gamemode->core)
+		if (core)
 		{
-			gamemode->core->useStuntBonuses(true);
+			core->useStuntBonuses(true);
 		}
 	}
 

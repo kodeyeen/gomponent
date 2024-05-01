@@ -40,7 +40,7 @@ public:
 
 	bool onPlayerText(IPlayer& player, StringView message) override
 	{
-		std::cout << "Message: " << message << std::endl;
+		// std::cout << "Message: " << message << std::endl;
 		return true;
 	}
 

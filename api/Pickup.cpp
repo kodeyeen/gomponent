@@ -10,14 +10,16 @@ extern "C"
 
 	GOMPONENT_EXPORT void* pickup_create(int modelId, uint8_t type, float posX, float posY, float posZ, uint32_t virtualWorld, int isStatic)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPickupsComponent* component = gamemode->pickups;
+		IPickupsComponent* pickups = Gomponent::Get()->pickups;
 
-		if (component)
+		if (pickups)
 		{
-			IPickup* pickup = component->create(modelId, type, Vector3(posX, posY, posZ), virtualWorld, false);
+			IPickup* pickup = pickups->create(modelId, type, Vector3(posX, posY, posZ), virtualWorld, false);
 
-			return static_cast<void*>(pickup);
+			if (pickup)
+			{
+				return static_cast<void*>(pickup);
+			}
 		}
 
 		return NULL;
@@ -25,12 +27,11 @@ extern "C"
 
 	GOMPONENT_EXPORT void pickup_release(void* pickup)
 	{
-		auto gamemode = Gomponent::Get()->getGamemode();
-		IPickupsComponent* component = gamemode->pickups;
+		IPickupsComponent* pickups = Gomponent::Get()->pickups;
 
-		if (component)
+		if (pickups)
 		{
-			component->release(static_cast<IPickup*>(pickup)->getID());
+			pickups->release(static_cast<IPickup*>(pickup)->getID());
 		}
 	}
 
@@ -41,7 +42,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void pickup_setType(void* pickup, uint8_t type)
 	{
-		return static_cast<IPickup*>(pickup)->setType(type);
+		static_cast<IPickup*>(pickup)->setType(type);
 	}
 
 	GOMPONENT_EXPORT uint8_t pickup_getType(void* pickup)
@@ -51,7 +52,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void pickup_setModel(void* pickup, int model)
 	{
-		return static_cast<IPickup*>(pickup)->setModel(model);
+		static_cast<IPickup*>(pickup)->setModel(model);
 	}
 
 	GOMPONENT_EXPORT int pickup_getModel(void* pickup)
@@ -66,7 +67,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void pickup_setPickupHiddenForPlayer(void* pickup, void* player, unsigned char hidden)
 	{
-		return static_cast<IPickup*>(pickup)->setPickupHiddenForPlayer(*static_cast<IPlayer*>(player), hidden != 0);
+		static_cast<IPickup*>(pickup)->setPickupHiddenForPlayer(*static_cast<IPlayer*>(player), hidden != 0);
 	}
 
 	GOMPONENT_EXPORT unsigned char pickup_isPickupHiddenForPlayer(void* pickup, void* player)
@@ -78,7 +79,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void pickup_setPosition(void* pickup, float posX, float posY, float posZ)
 	{
-		return static_cast<IPickup*>(pickup)->setPosition(Vector3(posX, posY, posZ));
+		static_cast<IPickup*>(pickup)->setPosition(Vector3(posX, posY, posZ));
 	}
 
 	GOMPONENT_EXPORT Vector3 pickup_getPosition(void* pickup)
@@ -88,7 +89,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void pickup_setVirtualWorld(void* pickup, int vw)
 	{
-		return static_cast<IPickup*>(pickup)->setVirtualWorld(vw);
+		static_cast<IPickup*>(pickup)->setVirtualWorld(vw);
 	}
 
 	GOMPONENT_EXPORT int pickup_getVirtualWorld(void* pickup)
