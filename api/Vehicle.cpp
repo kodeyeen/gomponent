@@ -10,11 +10,11 @@ extern "C"
 
 	// Vehicle
 
-	GOMPONENT_EXPORT void* vehicle_create(int isStatic, int modelID, float x, float y, float z, float angle, int colour1, int colour2, int respawnDelay, int addSiren)
+	GOMPONENT_EXPORT void* vehicle_create(int isStatic, int modelID, float x, float y, float z, float angle, int colour1, int colour2, int respawnDelay, unsigned char addSiren)
 	{
 		IVehiclesComponent* vehicles = Gomponent::Get()->vehicles;
 
-		IVehicle* vehicle = vehicles->create(bool(isStatic), modelID, Vector3(x, y, z), angle, colour1, colour2, Seconds(respawnDelay), bool(addSiren));
+		IVehicle* vehicle = vehicles->create(bool(isStatic), modelID, Vector3(x, y, z), angle, colour1, colour2, Seconds(respawnDelay), addSiren);
 
 		return static_cast<void*>(vehicle);
 	}
@@ -53,7 +53,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setColour(void* vehicle, int col1, int col2)
 	{
-		return static_cast<IVehicle*>(vehicle)->setColour(col1, col2);
+		static_cast<IVehicle*>(vehicle)->setColour(col1, col2);
 	}
 
 	GOMPONENT_EXPORT VehicleColour vehicle_getColour(void* vehicle)
@@ -65,7 +65,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setHealth(void* vehicle, float health)
 	{
-		return static_cast<IVehicle*>(vehicle)->setHealth(health);
+		static_cast<IVehicle*>(vehicle)->setHealth(health);
 	}
 
 	GOMPONENT_EXPORT float vehicle_getHealth(void* vehicle)
@@ -100,7 +100,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setPlate(void* vehicle, String plate)
 	{
-		return static_cast<IVehicle*>(vehicle)->setPlate(StringView(plate.buf, plate.length));
+		static_cast<IVehicle*>(vehicle)->setPlate(StringView(plate.buf, plate.length));
 	}
 
 	GOMPONENT_EXPORT String vehicle_getPlate(void* vehicle)
@@ -112,17 +112,17 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setDamageStatus(void* vehicle, int PanelStatus, int DoorStatus, uint8_t LightStatus, uint8_t TyreStatus, void* vehicleUpdater)
 	{
-		return static_cast<IVehicle*>(vehicle)->setDamageStatus(PanelStatus, DoorStatus, LightStatus, TyreStatus, static_cast<IPlayer*>(vehicleUpdater));
+		static_cast<IVehicle*>(vehicle)->setDamageStatus(PanelStatus, DoorStatus, LightStatus, TyreStatus, static_cast<IPlayer*>(vehicleUpdater));
 	}
 
 	GOMPONENT_EXPORT void vehicle_getDamageStatus(void* vehicle, int* PanelStatus, int* DoorStatus, int* LightStatus, int* TyreStatus)
 	{
-		return static_cast<IVehicle*>(vehicle)->getDamageStatus(*PanelStatus, *DoorStatus, *LightStatus, *TyreStatus);
+		static_cast<IVehicle*>(vehicle)->getDamageStatus(*PanelStatus, *DoorStatus, *LightStatus, *TyreStatus);
 	}
 
 	GOMPONENT_EXPORT void vehicle_setPaintjob(void* vehicle, int paintjob)
 	{
-		return static_cast<IVehicle*>(vehicle)->setPaintJob(paintjob);
+		static_cast<IVehicle*>(vehicle)->setPaintJob(paintjob);
 	}
 
 	GOMPONENT_EXPORT int vehicle_getPaintjob(void* vehicle)
@@ -152,7 +152,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setZAngle(void* vehicle, float angle)
 	{
-		return static_cast<IVehicle*>(vehicle)->setZAngle(angle);
+		static_cast<IVehicle*>(vehicle)->setZAngle(angle);
 	}
 
 	GOMPONENT_EXPORT float vehicle_getZAngle(void* vehicle)
@@ -162,12 +162,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setParams(void* vehicle, VehicleParams* params)
 	{
-		return static_cast<IVehicle*>(vehicle)->setParams(*params);
+		static_cast<IVehicle*>(vehicle)->setParams(*params);
 	}
 
 	GOMPONENT_EXPORT void vehicle_setParamsForPlayer(void* vehicle, void* player, VehicleParams* params)
 	{
-		return static_cast<IVehicle*>(vehicle)->setParamsForPlayer(*static_cast<IPlayer*>(player), *params);
+		static_cast<IVehicle*>(vehicle)->setParamsForPlayer(*static_cast<IPlayer*>(player), *params);
 	}
 
 	GOMPONENT_EXPORT VehicleParams vehicle_getParams(void* vehicle)
@@ -182,12 +182,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_respawn(void* vehicle)
 	{
-		return static_cast<IVehicle*>(vehicle)->respawn();
+		static_cast<IVehicle*>(vehicle)->respawn();
 	}
 
 	GOMPONENT_EXPORT void vehicle_setRespawnDelay(void* vehicle, int delay)
 	{
-		return static_cast<IVehicle*>(vehicle)->setRespawnDelay(Seconds(delay));
+		static_cast<IVehicle*>(vehicle)->setRespawnDelay(Seconds(delay));
 	}
 
 	GOMPONENT_EXPORT long long vehicle_getRespawnDelay(void* vehicle)
@@ -202,7 +202,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setInterior(void* vehicle, int interiorID)
 	{
-		return static_cast<IVehicle*>(vehicle)->setInterior(interiorID);
+		static_cast<IVehicle*>(vehicle)->setInterior(interiorID);
 	}
 
 	GOMPONENT_EXPORT int vehicle_getInterior(void* vehicle)
@@ -212,12 +212,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_attachTrailer(void* vehicle, void* trailer)
 	{
-		return static_cast<IVehicle*>(vehicle)->attachTrailer(*static_cast<IVehicle*>(trailer));
+		static_cast<IVehicle*>(vehicle)->attachTrailer(*static_cast<IVehicle*>(trailer));
 	}
 
 	GOMPONENT_EXPORT void vehicle_detachTrailer(void* vehicle)
 	{
-		return static_cast<IVehicle*>(vehicle)->detachTrailer();
+		static_cast<IVehicle*>(vehicle)->detachTrailer();
 	}
 
 	GOMPONENT_EXPORT int vehicle_isTrailer(void* vehicle)
@@ -244,12 +244,12 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_repair(void* vehicle)
 	{
-		return static_cast<IVehicle*>(vehicle)->repair();
+		static_cast<IVehicle*>(vehicle)->repair();
 	}
 
 	GOMPONENT_EXPORT void vehicle_setVelocity(void* vehicle, float x, float y, float z)
 	{
-		return static_cast<IVehicle*>(vehicle)->setVelocity(Vector3(x, y, z));
+		static_cast<IVehicle*>(vehicle)->setVelocity(Vector3(x, y, z));
 	}
 
 	GOMPONENT_EXPORT Vector3 vehicle_getVelocity(void* vehicle)
@@ -259,7 +259,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setAngularVelocity(void* vehicle, float x, float y, float z)
 	{
-		return static_cast<IVehicle*>(vehicle)->setAngularVelocity(Vector3(x, y, z));
+		static_cast<IVehicle*>(vehicle)->setAngularVelocity(Vector3(x, y, z));
 	}
 
 	GOMPONENT_EXPORT Vector3 vehicle_getAngularVelocity(void* vehicle)
@@ -282,7 +282,7 @@ extern "C"
 		return static_cast<IVehicle*>(vehicle)->hasBeenOccupied() ? 1 : 0;
 	}
 
-	long vehicle_getLastOccupiedTime(void* vehicle)
+	GOMPONENT_EXPORT long vehicle_getLastOccupiedTime(void* vehicle)
 	{
 		TimePoint spawnTime = static_cast<IVehicle*>(vehicle)->getLastOccupiedTime();
 		auto spawnTimeMs = std::chrono::time_point_cast<std::chrono::milliseconds>(spawnTime);
@@ -292,7 +292,7 @@ extern "C"
 		return duration;
 	}
 
-	long vehicle_getLastSpawnTime(void* vehicle)
+	GOMPONENT_EXPORT long vehicle_getLastSpawnTime(void* vehicle)
 	{
 		TimePoint spawnTime = static_cast<IVehicle*>(vehicle)->getLastSpawnTime();
 		auto spawnTimeMs = std::chrono::time_point_cast<std::chrono::milliseconds>(spawnTime);
@@ -341,7 +341,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setPosition(void* vehicle, float x, float y, float z)
 	{
-		return static_cast<IVehicle*>(vehicle)->setPosition(Vector3(x, y, z));
+		static_cast<IVehicle*>(vehicle)->setPosition(Vector3(x, y, z));
 	}
 
 	GOMPONENT_EXPORT Vector4 vehicle_getRotation(void* vehicle)
@@ -353,7 +353,7 @@ extern "C"
 
 	GOMPONENT_EXPORT void vehicle_setVirtualWorld(void* vehicle, int vw)
 	{
-		return static_cast<IVehicle*>(vehicle)->setVirtualWorld(vw);
+		static_cast<IVehicle*>(vehicle)->setVirtualWorld(vw);
 	}
 
 	GOMPONENT_EXPORT int vehicle_getVirtualWorld(void* vehicle)
@@ -369,7 +369,7 @@ extern "C"
 		return glm::distance(vehicleCoords, Vector3(pX, pY, pZ));
 	}
 
-	GOMPONENT_EXPORT int vehicle_isInRangeOfPoint(void* vehicle, float range, float pX, float pY, float pZ)
+	GOMPONENT_EXPORT unsigned char vehicle_isInRangeOfPoint(void* vehicle, float range, float pX, float pY, float pZ)
 	{
 		return range >= glm::distance(static_cast<IVehicle*>(vehicle)->getPosition(), Vector3(pX, pY, pZ)) ? 1 : 0;
 	}

@@ -31,12 +31,31 @@ extern "C"
 
 	typedef struct
 	{
+		unsigned char spectating;
+		int spectateID;
+		int type;
+	} CPlayerSpectateData;
+
+	typedef struct
+	{
 		Vector3 position;
 		float radius;
 		unsigned char isEnabled;
 	} Checkpoint;
 
 	// Player
+
+	GOMPONENT_EXPORT void player_sendDeathMessageToAll(void* killer, void* killee, int weapon)
+	{
+		IPlayerPool* players = Gomponent::Get()->players;
+		players->sendDeathMessageToAll(static_cast<IPlayer*>(killer), *static_cast<IPlayer*>(killee), weapon);
+	}
+
+	GOMPONENT_EXPORT void player_sendEmptyDeathMessageToAll()
+	{
+		IPlayerPool* players = Gomponent::Get()->players;
+		players->sendEmptyDeathMessageToAll();
+	}
 
 	GOMPONENT_EXPORT int player_getID(void* player)
 	{
@@ -739,9 +758,14 @@ extern "C"
 		return static_cast<IPlayer*>(player)->spectateVehicle(*static_cast<IVehicle*>(target), PlayerSpectateMode(mode));
 	}
 
-	GOMPONENT_EXPORT const PlayerSpectateData* player_getSpectateData(void* player)
+	GOMPONENT_EXPORT CPlayerSpectateData player_getSpectateData(void* player)
 	{
-		return &static_cast<IPlayer*>(player)->getSpectateData();
+		auto data = &static_cast<IPlayer*>(player)->getSpectateData();
+		return {
+			data->spectating ? 1 : 0,
+			data->spectateID,
+			static_cast<int>(data->type)
+		};
 	}
 
 	GOMPONENT_EXPORT void player_sendClientCheck(void* player, int actionType, int address, int offset, int count)
