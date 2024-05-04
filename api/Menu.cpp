@@ -1,6 +1,3 @@
-#include <sdk.hpp>
-#include "Server/Components/Menus/menus.hpp"
-
 #include "api.hpp"
 #include "Gomponent.hpp"
 

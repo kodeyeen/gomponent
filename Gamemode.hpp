@@ -2,16 +2,6 @@
 
 #include <string>
 #include <sdk.hpp>
-#include <Server/Components/Actors/actors.hpp>
-#include <Server/Components/Classes/classes.hpp>
-#include <Server/Components/GangZones/gangzones.hpp>
-#include <Server/Components/Menus/menus.hpp>
-#include <Server/Components/CustomModels/custommodels.hpp>
-#include <Server/Components/Objects/objects.hpp>
-#include <Server/Components/Pickups/pickups.hpp>
-#include <Server/Components/TextDraws/textdraws.hpp>
-#include <Server/Components/TextLabels/textlabels.hpp>
-#include <Server/Components/Vehicles/vehicles.hpp>
 #include <Windows.h>
 
 #include "Singleton.hpp"

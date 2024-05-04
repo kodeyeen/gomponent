@@ -1,6 +1,4 @@
-#include <sdk.hpp>
 #include <iostream>
-#include "Server/Components/Classes/classes.hpp"
 
 #include "api.hpp"
 #include "Gomponent.hpp"

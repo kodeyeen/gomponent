@@ -1,5 +1,3 @@
-// #include <Server/Components/Vehicles/vehicles.hpp>
-
 #include "api.hpp"
 #include "Gomponent.hpp"
 
@@ -78,20 +76,20 @@ extern "C"
 		return static_cast<IVehicle*>(vehicle)->getDriver();
 	}
 
-	GOMPONENT_EXPORT Array* vehicle_getPassengers(void* vehicle)
+	GOMPONENT_EXPORT Array vehicle_getPassengers(void* vehicle)
 	{
 		const FlatHashSet<IPlayer*>& passengers = static_cast<IVehicle*>(vehicle)->getPassengers();
 
-		Array* arr = newArray();
-		arr->length = passengers.size();
-		arr->buf = new void*[arr->length];
+		Array arr;
+		arr.length = passengers.size();
+		arr.buf = new void*[arr.length];
 
-		size_t count = 0;
+		size_t i = 0;
 		for (IPlayer* passenger : passengers)
 		{
-			if (count < arr->length)
+			if (i < arr.length)
 			{
-				arr->buf[count++] = static_cast<void*>(passenger);
+				arr.buf[i++] = static_cast<void*>(passenger);
 			}
 		}
 

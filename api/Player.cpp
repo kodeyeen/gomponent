@@ -1,8 +1,4 @@
-#include <sdk.hpp>
 #include <iostream>
-#include <Server/Components/Checkpoints/checkpoints.hpp>
-#include <Server/Components/Console/console.hpp>
-#include <Server/Components/CustomModels/custommodels.hpp>
 
 #include "api.hpp"
 #include "Gomponent.hpp"
@@ -20,17 +16,6 @@ extern "C"
 
 	typedef struct
 	{
-		int model;
-		int bone;
-		Vector3 offset;
-		Vector3 rotation;
-		Vector3 scale;
-		uint32_t colour1;
-		uint32_t colour2;
-	} PlayerAttachedObject;
-
-	typedef struct
-	{
 		unsigned char spectating;
 		int spectateID;
 		int type;
@@ -44,23 +29,6 @@ extern "C"
 	} Checkpoint;
 
 	// Player
-
-	GOMPONENT_EXPORT void player_sendDeathMessageToAll(void* killer, void* killee, int weapon)
-	{
-		IPlayerPool* players = Gomponent::Get()->players;
-		players->sendDeathMessageToAll(static_cast<IPlayer*>(killer), *static_cast<IPlayer*>(killee), weapon);
-	}
-
-	GOMPONENT_EXPORT void player_sendEmptyDeathMessageToAll()
-	{
-		IPlayerPool* players = Gomponent::Get()->players;
-		players->sendEmptyDeathMessageToAll();
-	}
-
-	GOMPONENT_EXPORT int player_getID(void* player)
-	{
-		return static_cast<IPlayer*>(player)->getID();
-	}
 
 	GOMPONENT_EXPORT void* player_getByID(int id)
 	{
@@ -78,6 +46,44 @@ extern "C"
 		}
 
 		return NULL;
+	}
+
+	GOMPONENT_EXPORT Array player_getAll()
+	{
+		IPlayerPool* pool = Gomponent::Get()->players;
+		const FlatPtrHashSet<IPlayer>& players = pool->entries();
+
+		Array arr;
+		arr.length = players.size();
+		arr.buf = new void*[arr.length];
+
+		size_t i = 0;
+		for (IPlayer* player : players)
+		{
+			if (i < arr.length)
+			{
+				arr.buf[i++] = static_cast<void*>(player);
+			}
+		}
+
+		return arr;
+	}
+
+	GOMPONENT_EXPORT void player_sendDeathMessageToAll(void* killer, void* killee, int weapon)
+	{
+		IPlayerPool* players = Gomponent::Get()->players;
+		players->sendDeathMessageToAll(static_cast<IPlayer*>(killer), *static_cast<IPlayer*>(killee), weapon);
+	}
+
+	GOMPONENT_EXPORT void player_sendEmptyDeathMessageToAll()
+	{
+		IPlayerPool* players = Gomponent::Get()->players;
+		players->sendEmptyDeathMessageToAll();
+	}
+
+	GOMPONENT_EXPORT int player_getID(void* player)
+	{
+		return static_cast<IPlayer*>(player)->getID();
 	}
 
 	GOMPONENT_EXPORT void player_kick(void* player)
@@ -218,21 +224,18 @@ extern "C"
 		return static_cast<IPlayer*>(player)->setWeaponAmmo(WeaponSlotData(id, ammo));
 	}
 
-	GOMPONENT_EXPORT Array* player_getWeapons(void* player)
+	GOMPONENT_EXPORT Array player_getWeapons(void* player)
 	{
-		const StaticArray<WeaponSlotData, MAX_WEAPON_SLOTS>& weapons = static_cast<IPlayer*>(player)->getWeapons();
+		const WeaponSlots& weapons = static_cast<IPlayer*>(player)->getWeapons();
 
-		Array* arr = newArray();
-		arr->length = weapons.size();
-		arr->buf = new void*[arr->length];
+		Array arr = newArray(weapons.size());
 
-		size_t count = 0;
-		for (WeaponSlotData weapon : weapons)
+		size_t i = 0;
+		for (const WeaponSlotData& weapon : weapons)
 		{
-			if (count < arr->length)
+			if (i < arr.length)
 			{
-				// TODO: alloc weapon
-				arr->buf[count++] = static_cast<void*>(&weapon);
+				arr.buf[i++] = static_cast<void*>(const_cast<WeaponSlotData*>(&weapon));
 			}
 		}
 
@@ -762,7 +765,7 @@ extern "C"
 	{
 		auto data = &static_cast<IPlayer*>(player)->getSpectateData();
 		return {
-			data->spectating ? 1 : 0,
+			(unsigned char)(data->spectating ? 1 : 0),
 			data->spectateID,
 			static_cast<int>(data->type)
 		};

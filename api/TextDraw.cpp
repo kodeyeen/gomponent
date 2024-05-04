@@ -1,6 +1,3 @@
-#include <sdk.hpp>
-#include "Server/Components/TextDraws/textdraws.hpp"
-
 #include "api.hpp"
 #include "Gomponent.hpp"
 

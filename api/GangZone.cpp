@@ -1,6 +1,3 @@
-#include <sdk.hpp>
-#include "Server/Components/GangZones/gangzones.hpp"
-
 #include "api.hpp"
 #include "Gomponent.hpp"
 

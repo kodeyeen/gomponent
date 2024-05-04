@@ -1,6 +1,3 @@
-#include <sdk.hpp>
-#include "Server/Components/TextLabels/textlabels.hpp"
-
 #include "api.hpp"
 #include "Gomponent.hpp"
 

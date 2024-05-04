@@ -1,5 +1,4 @@
 #include <sdk.hpp>
-#include "Server/Components/Actors/actors.hpp"
 
 #include "api.hpp"
 #include "Gomponent.hpp"

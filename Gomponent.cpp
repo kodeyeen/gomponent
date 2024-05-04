@@ -9,8 +9,19 @@
 // Include the component's definition.
 #include "Gomponent.hpp"
 #include "Gamemode.hpp"
+#include "ActorEvents.hpp"
+#include "CheckpointEvents.hpp"
 #include "ClassEvents.hpp"
+#include "ConsoleEvents.hpp"
+#include "DialogEvents.hpp"
+#include "GangZoneEvents.hpp"
+#include "MenuEvents.hpp"
+#include "ObjectEvents.hpp"
+#include "PickupEvents.hpp"
 #include "PlayerEvents.hpp"
+#include "TextDrawEvents.hpp"
+#include "VehicleEvents.hpp"
+#include "CustomModelEvents.hpp"
 
 Gamemode* Gomponent::getGamemode() {
 	return gamemode_;
@@ -30,11 +41,11 @@ SemanticVersion Gomponent::componentVersion() const
 void Gomponent::onLoad(ICore* c)
 {
 	// Cache core, listen to player events.
-	players = &c->getPlayers();
 
 	gamemode_ = new Gamemode("./gamemodes/test.dll");
 	core = c;
 	config = &c->getConfig();
+	players = &c->getPlayers();
 
 	// Done.
 	// core_->printLn("Gomponent loaded.");
@@ -45,7 +56,10 @@ void Gomponent::onInit(IComponentList* components)
 	// core_->printLn("Gomponent is being initialized.");
 
 	actors = components->queryComponent<IActorsComponent>();
+	checkpoints = components->queryComponent<ICheckpointsComponent>();
 	classes = components->queryComponent<IClassesComponent>();
+	console = components->queryComponent<IConsoleComponent>();
+	dialogs = components->queryComponent<IDialogsComponent>();
 	gangzones = components->queryComponent<IGangZonesComponent>();
 	menus = components->queryComponent<IMenusComponent>();
 	objects = components->queryComponent<IObjectsComponent>();
@@ -53,14 +67,16 @@ void Gomponent::onInit(IComponentList* components)
 	textdraws = components->queryComponent<ITextDrawsComponent>();
 	textlabels = components->queryComponent<ITextLabelsComponent>();
 	vehicles = components->queryComponent<IVehiclesComponent>();
+	models = components->queryComponent<ICustomModelsComponent>();
 
-	if (players)
+	if (actors)
 	{
-		players->getPlayerSpawnDispatcher().addEventHandler(PlayerEvents::Get());
-		players->getPlayerConnectDispatcher().addEventHandler(PlayerEvents::Get());
-		players->getPlayerTextDispatcher().addEventHandler(PlayerEvents::Get());
-		players->getPlayerDamageDispatcher().addEventHandler(PlayerEvents::Get());
-		players->getPlayerUpdateDispatcher().addEventHandler(PlayerEvents::Get());
+		actors->getEventDispatcher().addEventHandler(ActorEvents::Get());
+	}
+
+	if (checkpoints)
+	{
+		checkpoints->getEventDispatcher().addEventHandler(CheckpointEvents::Get());
 	}
 
 	if (classes)
@@ -68,16 +84,91 @@ void Gomponent::onInit(IComponentList* components)
 		classes->getEventDispatcher().addEventHandler(ClassEvents::Get());
 	}
 
-	gamemode_->init();
+	if (console)
+	{
+		console->getEventDispatcher().addEventHandler(ConsoleEvents::Get());
+	}
+
+	if (dialogs)
+	{
+		dialogs->getEventDispatcher().addEventHandler(DialogEvents::Get());
+	}
+
+	if (gangzones)
+	{
+		gangzones->getEventDispatcher().addEventHandler(GangZoneEvents::Get());
+	}
+
+	if (menus)
+	{
+		menus->getEventDispatcher().addEventHandler(MenuEvents::Get());
+	}
+
+	if (objects)
+	{
+		objects->getEventDispatcher().addEventHandler(ObjectEvents::Get());
+	}
+
+	if (pickups)
+	{
+		pickups->getEventDispatcher().addEventHandler(PickupEvents::Get());
+	}
+
+	if (players)
+	{
+		players->getPlayerSpawnDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerConnectDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerStreamDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerTextDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerShotDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerChangeDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerDamageDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerClickDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerCheckDispatcher().addEventHandler(PlayerEvents::Get());
+		players->getPlayerUpdateDispatcher().addEventHandler(PlayerEvents::Get());
+	}
+
+	if (textdraws)
+	{
+		textdraws->getEventDispatcher().addEventHandler(TextDrawEvents::Get());
+	}
+
+	if (vehicles)
+	{
+		vehicles->getEventDispatcher().addEventHandler(VehicleEvents::Get());
+	}
+
+	if (models)
+	{
+		models->getEventDispatcher().addEventHandler(CustomModelEvents::Get());
+	}
 }
 
 void Gomponent::onReady()
 {
+	gamemode_->init();
 	// core_->printLn("Gomponent is ready.");
 }
 
 void Gomponent::onFree(IComponent* component)
 {
+#define COMPONENT_UNLOADED(var) \
+	if (component == var)       \
+		var = nullptr;
+
+	COMPONENT_UNLOADED(actors)
+	COMPONENT_UNLOADED(checkpoints)
+	COMPONENT_UNLOADED(classes)
+	COMPONENT_UNLOADED(console)
+	COMPONENT_UNLOADED(dialogs)
+	COMPONENT_UNLOADED(gangzones)
+	COMPONENT_UNLOADED(menus)
+	COMPONENT_UNLOADED(objects)
+	COMPONENT_UNLOADED(pickups)
+	COMPONENT_UNLOADED(textdraws)
+	COMPONENT_UNLOADED(textlabels)
+	COMPONENT_UNLOADED(vehicles)
+	COMPONENT_UNLOADED(models)
 }
 
 void Gomponent::free()

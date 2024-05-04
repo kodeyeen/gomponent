@@ -1,6 +1,5 @@
 #include <sdk.hpp>
 #include <iostream>
-#include "Server/Components/Checkpoints/checkpoints.hpp"
 
 #include "api.hpp"
 #include "Gomponent.hpp"

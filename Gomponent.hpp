@@ -10,6 +10,19 @@
 
 // Required for most of open.mp.
 #include <sdk.hpp>
+#include <Server/Components/Actors/actors.hpp>
+#include <Server/Components/Checkpoints/checkpoints.hpp>
+#include <Server/Components/Console/console.hpp>
+#include <Server/Components/Classes/classes.hpp>
+#include <Server/Components/Dialogs/dialogs.hpp>
+#include <Server/Components/GangZones/gangzones.hpp>
+#include <Server/Components/Menus/menus.hpp>
+#include <Server/Components/Objects/objects.hpp>
+#include <Server/Components/Pickups/pickups.hpp>
+#include <Server/Components/TextDraws/textdraws.hpp>
+#include <Server/Components/TextLabels/textlabels.hpp>
+#include <Server/Components/Vehicles/vehicles.hpp>
+#include <Server/Components/CustomModels/custommodels.hpp>
 
 // This is the private implementation of the public interface.  We must know the interface.
 #include "Singleton.hpp"
@@ -29,8 +42,10 @@ public:
 	IConfig* config = nullptr;
 	IPlayerPool* players = nullptr;
 	IActorsComponent* actors = nullptr;
+	IConsoleComponent* console = nullptr;
+	ICheckpointsComponent* checkpoints = nullptr;
 	IClassesComponent* classes = nullptr;
-	ICustomModelsComponent* models = nullptr;
+	IDialogsComponent* dialogs = nullptr;
 	IGangZonesComponent* gangzones = nullptr;
 	IMenusComponent* menus = nullptr;
 	IObjectsComponent* objects = nullptr;
@@ -38,6 +53,7 @@ public:
 	ITextDrawsComponent* textdraws = nullptr;
 	ITextLabelsComponent* textlabels = nullptr;
 	IVehiclesComponent* vehicles = nullptr;
+	ICustomModelsComponent* models = nullptr;
 
 	Gamemode* getGamemode();
 
