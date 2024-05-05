@@ -29,15 +29,26 @@ template <typename R, typename... Args>
 R Gamemode::call(const std::string& callbackName, Args... args)
 {
 	auto it = callbacks.find(callbackName);
+	void* callbackAddr = nullptr;
 
-	/*if (it == callbacks.end())
+	if (it == callbacks.end())
 	{
-		return;
-	}*/
+		callbackAddr = findCallback(callbackName);
+		callbacks.emplace(callbackName, callbackAddr);
+	}
+	else
+	{
+		callbackAddr = it->second;
+	}
+
+	// R ret;
+	// if callbackAddr == nullptr {
+	//     return ret;
+	// }
 
 	typedef R (* CallbackType)(Args...);
 
-	CallbackType callback = (CallbackType)it->second;
+	CallbackType callback = (CallbackType)callbackAddr;
 
 	return (*callback)(std::forward<Args>(args)...);
 }
