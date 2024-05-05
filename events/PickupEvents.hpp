@@ -16,11 +16,11 @@ public:
 	{
 		if (pickup.getLegacyPlayer() == nullptr)
 		{
-			gamemode_->call<unsigned char>("onPlayerPickUpPickup", static_cast<void*>(&player), static_cast<void*>(&pickup));
+			gamemode_->call<void>("onPlayerPickUpPickup", static_cast<void*>(&player), static_cast<void*>(&pickup));
 		}
 		else if (auto data = queryExtension<IPlayerPickupData>(player))
 		{
-			gamemode_->call<unsigned char>("onPlayerPickUpPlayerPickup", static_cast<void*>(&player), static_cast<void*>(&pickup));
+			gamemode_->call<void>("onPlayerPickUpPlayerPickup", static_cast<void*>(&player), static_cast<void*>(&pickup));
 		}
 	}
 

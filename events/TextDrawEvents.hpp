@@ -14,12 +14,12 @@ public:
 
 	void onPlayerClickTextDraw(IPlayer& player, ITextDraw& td) override
 	{
-		gamemode_->call<unsigned char>("onPlayerClickTextDraw", static_cast<void*>(&player), static_cast<void*>(&td));
+		gamemode_->call<void>("onPlayerClickTextDraw", static_cast<void*>(&player), static_cast<void*>(&td));
 	}
 
 	void onPlayerClickPlayerTextDraw(IPlayer& player, IPlayerTextDraw& td) override
 	{
-		gamemode_->call<unsigned char>("onPlayerClickPlayerTextDraw", static_cast<void*>(&player), static_cast<void*>(&td));
+		gamemode_->call<void>("onPlayerClickPlayerTextDraw", static_cast<void*>(&player), static_cast<void*>(&td));
 	}
 
 	bool onPlayerCancelTextDrawSelection(IPlayer& player) override

@@ -14,32 +14,32 @@ public:
 
 	void onVehicleStreamIn(IVehicle& vehicle, IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onVehicleStreamIn", static_cast<void*>(&vehicle), static_cast<void*>(&player));
+		gamemode_->call<void>("onVehicleStreamIn", static_cast<void*>(&vehicle), static_cast<void*>(&player));
 	}
 
 	void onVehicleStreamOut(IVehicle& vehicle, IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onVehicleStreamOut", static_cast<void*>(&vehicle), static_cast<void*>(&player));
+		gamemode_->call<void>("onVehicleStreamOut", static_cast<void*>(&vehicle), static_cast<void*>(&player));
 	}
 
 	void onVehicleDeath(IVehicle& vehicle, IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onVehicleDeath", static_cast<void*>(&vehicle), static_cast<void*>(&player));
+		gamemode_->call<void>("onVehicleDeath", static_cast<void*>(&vehicle), static_cast<void*>(&player));
 	}
 
 	void onPlayerEnterVehicle(IPlayer& player, IVehicle& vehicle, bool passenger) override
 	{
-		gamemode_->call<unsigned char>("onPlayerEnterVehicle", static_cast<void*>(&player), static_cast<void*>(&vehicle), (unsigned char)(passenger ? 1 : 0));
+		gamemode_->call<void>("onPlayerEnterVehicle", static_cast<void*>(&player), static_cast<void*>(&vehicle), (unsigned char)(passenger ? 1 : 0));
 	}
 
 	void onPlayerExitVehicle(IPlayer& player, IVehicle& vehicle) override
 	{
-		gamemode_->call<unsigned char>("onPlayerExitVehicle", static_cast<void*>(&player), static_cast<void*>(&vehicle));
+		gamemode_->call<void>("onPlayerExitVehicle", static_cast<void*>(&player), static_cast<void*>(&vehicle));
 	}
 
 	void onVehicleDamageStatusUpdate(IVehicle& vehicle, IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onVehicleDamageStatusUpdate", static_cast<void*>(&vehicle), static_cast<void*>(&player));
+		gamemode_->call<void>("onVehicleDamageStatusUpdate", static_cast<void*>(&vehicle), static_cast<void*>(&player));
 	}
 
 	bool onVehiclePaintJob(IPlayer& player, IVehicle& vehicle, int paintJob) override
@@ -59,12 +59,12 @@ public:
 
 	void onEnterExitModShop(IPlayer& player, bool enterexit, int interiorID) override
 	{
-		gamemode_->call<unsigned char>("onEnterExitModShop", static_cast<void*>(&player), (unsigned char)(enterexit ? 1 : 0), interiorID);
+		gamemode_->call<void>("onEnterExitModShop", static_cast<void*>(&player), (unsigned char)(enterexit ? 1 : 0), interiorID);
 	}
 
 	void onVehicleSpawn(IVehicle& vehicle) override
 	{
-		gamemode_->call<unsigned char>("onVehicleSpawn", static_cast<void*>(&vehicle));
+		gamemode_->call<void>("onVehicleSpawn", static_cast<void*>(&vehicle));
 	}
 
 	bool onUnoccupiedVehicleUpdate(IVehicle& vehicle, IPlayer& player, UnoccupiedVehicleUpdate const updateData) override

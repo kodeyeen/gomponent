@@ -26,7 +26,7 @@ public:
 	{
 		String passwordStr = { password.data(), password.length() };
 
-		gamemode_->call<unsigned char>("onRconLoginAttempt", static_cast<void*>(&player), passwordStr, (unsigned char)(success ? 1 : 0));
+		gamemode_->call<void>("onRconLoginAttempt", static_cast<void*>(&player), passwordStr, (unsigned char)(success ? 1 : 0));
 	}
 
 	// void onConsoleCommandListRequest(FlatHashSet<StringView>& commands) { }

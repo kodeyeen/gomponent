@@ -16,11 +16,11 @@ public:
 	{
 		if (zone.getLegacyPlayer() == nullptr)
 		{
-			gamemode_->call<unsigned char>("onPlayerEnterGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
+			gamemode_->call<void>("onPlayerEnterGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
 		}
 		else if (auto data = queryExtension<IPlayerGangZoneData>(player))
 		{
-			gamemode_->call<unsigned char>("onPlayerEnterPlayerGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
+			gamemode_->call<void>("onPlayerEnterPlayerGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
 		}
 	}
 
@@ -28,11 +28,11 @@ public:
 	{
 		if (zone.getLegacyPlayer() == nullptr)
 		{
-			gamemode_->call<unsigned char>("onPlayerLeaveGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
+			gamemode_->call<void>("onPlayerLeaveGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
 		}
 		else if (auto data = queryExtension<IPlayerGangZoneData>(player))
 		{
-			gamemode_->call<unsigned char>("onPlayerLeavePlayerGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
+			gamemode_->call<void>("onPlayerLeavePlayerGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
 		}
 	}
 
@@ -40,11 +40,11 @@ public:
 	{
 		if (zone.getLegacyPlayer() == nullptr)
 		{
-			gamemode_->call<unsigned char>("onPlayerClickGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
+			gamemode_->call<void>("onPlayerClickGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
 		}
 		else if (auto data = queryExtension<IPlayerGangZoneData>(player))
 		{
-			gamemode_->call<unsigned char>("onPlayerClickPlayerGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
+			gamemode_->call<void>("onPlayerClickPlayerGangZone", static_cast<void*>(&player), static_cast<void*>(&zone));
 		}
 	}
 

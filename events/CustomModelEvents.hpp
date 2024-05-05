@@ -14,12 +14,12 @@ public:
 
 	void onPlayerFinishedDownloading(IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onPlayerFinishedDownloading", static_cast<void*>(&player));
+		gamemode_->call<void>("onPlayerFinishedDownloading", static_cast<void*>(&player));
 	}
 
 	bool onPlayerRequestDownload(IPlayer& player, ModelDownloadType type, uint32_t checksum) override
 	{
-		return gamemode_->call<unsigned char>("onPlayerRequestDownload", uint8_t(type), checksum);
+		return gamemode_->call<unsigned char>("onPlayerRequestDownload", uint8_t(type), checksum) != 0;
 	}
 
 private:

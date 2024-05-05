@@ -14,12 +14,12 @@ public:
 
 	void onPlayerSelectedMenuRow(IPlayer& player, MenuRow row) override
 	{
-		gamemode_->call<unsigned char>("onPlayerSelectedMenuRow", static_cast<void*>(&player), uint8_t(row));
+		gamemode_->call<void>("onPlayerSelectedMenuRow", static_cast<void*>(&player), uint8_t(row));
 	}
 	
 	void onPlayerExitedMenu(IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onPlayerExitedMenu", static_cast<void*>(&player));
+		gamemode_->call<void>("onPlayerExitedMenu", static_cast<void*>(&player));
 	}
 
 private:

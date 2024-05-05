@@ -14,22 +14,22 @@ public:
 
 	void onPlayerEnterCheckpoint(IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onPlayerEnterCheckpoint", static_cast<void*>(&player));
+		gamemode_->call<void>("onPlayerEnterCheckpoint", static_cast<void*>(&player));
 	}
 
 	void onPlayerLeaveCheckpoint(IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onPlayerLeaveCheckpoint", static_cast<void*>(&player));
+		gamemode_->call<void>("onPlayerLeaveCheckpoint", static_cast<void*>(&player));
 	}
 
 	void onPlayerEnterRaceCheckpoint(IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onPlayerEnterRaceCheckpoint", static_cast<void*>(&player));
+		gamemode_->call<void>("onPlayerEnterRaceCheckpoint", static_cast<void*>(&player));
 	}
 
 	void onPlayerLeaveRaceCheckpoint(IPlayer& player) override
 	{
-		gamemode_->call<unsigned char>("onPlayerLeaveRaceCheckpoint", static_cast<void*>(&player));
+		gamemode_->call<void>("onPlayerLeaveRaceCheckpoint", static_cast<void*>(&player));
 	}
 
 private:

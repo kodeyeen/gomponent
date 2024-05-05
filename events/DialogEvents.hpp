@@ -17,7 +17,7 @@ public:
 	{
 		String inputTextStr = { inputText.data(), inputText.length() };
 
-		gamemode_->call<unsigned char>("onDialogResponse", static_cast<void*>(&player), dialogId, int(response), listItem, inputTextStr);
+		gamemode_->call<void>("onDialogResponse", static_cast<void*>(&player), dialogId, int(response), listItem, inputTextStr);
 	}
 
 private:
