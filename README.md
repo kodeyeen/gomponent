@@ -12,3 +12,9 @@ Similar to goroutines (go coroutines) in Go.
 ## Usage
 
 Put the component files into your project's `components` directory so it can be loaded by open.mp server and find your gamemodes in the `gamemodes` folder.
+
+## Credits
+
+* [Sreyas-Sreelal](https://github.com/Sreyas-Sreelal)
+* [Hual](https://github.com/Hual)
+* [AmyrAhmady](https://github.com/AmyrAhmady)
