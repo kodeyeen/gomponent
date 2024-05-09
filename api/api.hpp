@@ -37,6 +37,15 @@ typedef struct
 	uint32_t colour2;
 } PlayerAttachedObject;
 
-GOMPONENT_EXPORT Array newArray(size_t size);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-GOMPONENT_EXPORT void freeArray(Array arr);
+	GOMPONENT_EXPORT Array newArray(size_t size);
+
+	GOMPONENT_EXPORT void freeArray(Array arr);
+
+#ifdef __cplusplus
+}
+#endif

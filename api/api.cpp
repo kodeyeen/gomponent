@@ -1,18 +1,28 @@
 #include "api.hpp"
+#include "Gomponent.hpp"
 
-GOMPONENT_EXPORT Array newArray(size_t size)
+#ifdef __cplusplus
+extern "C"
 {
-	Array arr;
-	arr.length = size;
-	arr.buf = new void*[arr.length];
+#endif
 
-	return arr;
-}
-
-GOMPONENT_EXPORT void freeArray(Array arr)
-{
-	if (arr.buf)
+	GOMPONENT_EXPORT Array newArray(size_t size)
 	{
-		delete[] arr.buf;
+		Array arr;
+		arr.length = size;
+		arr.buf = new void*[arr.length];
+
+		return arr;
 	}
+
+	GOMPONENT_EXPORT void freeArray(Array arr)
+	{
+		if (arr.buf)
+		{
+			delete[] arr.buf;
+		}
+	}
+
+#ifdef __cplusplus
 }
+#endif
