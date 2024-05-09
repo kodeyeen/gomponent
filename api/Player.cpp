@@ -56,7 +56,7 @@ extern "C"
 		Array arr;
 		arr.length = players.size();
 		arr.buf = new void*[arr.length];
-
+		
 		size_t i = 0;
 		for (IPlayer* player : players)
 		{
@@ -79,6 +79,12 @@ extern "C"
 	{
 		IPlayerPool* players = Gomponent::Get()->players;
 		players->sendEmptyDeathMessageToAll();
+	}
+
+	GOMPONENT_EXPORT void player_sendGameTextToAll(String msg, int time, int style)
+	{
+		IPlayerPool* players = Gomponent::Get()->players;
+		players->sendGameTextToAll(StringView(msg.buf, msg.length), Milliseconds(time), style);
 	}
 
 	GOMPONENT_EXPORT int player_getID(void* player)
