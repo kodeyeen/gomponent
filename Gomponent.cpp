@@ -42,13 +42,19 @@ void Gomponent::onLoad(ICore* c)
 {
 	// Cache core, listen to player events.
 
-	gamemode_ = new Gamemode("./gamemodes/test.dll");
 	core = c;
 	config = &c->getConfig();
 	players = &c->getPlayers();
 
-	// Done.
-	// core_->printLn("Gomponent loaded.");
+	StringView gamemodeName = config->getString("go.gamemode");
+	
+	if (gamemodeName.empty())
+	{
+		core->logLn(LogLevel::Error, "go.gamemode config string is not set");
+		return;
+	}
+
+	gamemode_ = new Gamemode("gamemodes/" + gamemodeName.to_string() + ".dll");
 }
 
 void Gomponent::onInit(IComponentList* components)
