@@ -20,11 +20,6 @@ public:
 		if (classes)
 		{
 			_class = classes->get(classId);
-		
-			if (!_class)
-			{
-				_class = NULL;
-			}
 		}
 
 		return gamemode_->call<unsigned char>("onPlayerRequestClass", static_cast<void*>(&player), static_cast<void*>(_class)) != 0;
