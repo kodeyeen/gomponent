@@ -919,6 +919,30 @@ extern "C"
 		return data->getCustomSkin();
 	}
 
+	// dialog data
+
+	GOMPONENT_EXPORT void player_showDialog(void* player, int id, int style, String title, String body, String button1, String button2)
+	{
+		IPlayerDialogData* data = queryExtension<IPlayerDialogData>(static_cast<IPlayer*>(player));
+
+		data->show(
+			*static_cast<IPlayer*>(player),
+			id,
+			DialogStyle(style),
+			StringView(title.buf, title.length),
+			StringView(body.buf, body.length),
+			StringView(button1.buf, button1.length),
+			StringView(button2.buf, button2.length)
+		);
+	}
+
+	GOMPONENT_EXPORT void player_hideDialog(void* player)
+	{
+		IPlayerDialogData* data = queryExtension<IPlayerDialogData>(static_cast<IPlayer*>(player));
+
+		data->hide(*static_cast<IPlayer*>(player));
+	}
+
 	// network data
 
 	GOMPONENT_EXPORT String player_getIp(void* player)
