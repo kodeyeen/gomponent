@@ -1,7 +1,7 @@
 Gomponent
 ==================================
 
-This is an open.mp component for loading gamemodes written in Go with the [gomp](https://github.com/kodeyeen/gomp) package.
+This is an open.mp component for loading gamemodes written in Go with the [omp](https://github.com/kodeyeen/omp) package.
 The name `Gomponent` is composed of three word-forming elements:
 1. Go
 2. omp (short for open.mp)
