@@ -1,7 +1,7 @@
 gomponent
 ==================================
 
-Work in progress. Comeback later.
+*Work in progress. Comeback later.*
 
 This is an open.mp component for loading gamemodes written in Go with the [omp](https://github.com/kodeyeen/omp) package.
 The name `Gomponent` is composed of three word-forming elements:
