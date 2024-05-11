@@ -11,4 +11,15 @@ Similar to goroutines (go coroutines) in Go.
 
 ## Usage
 
-Put the component files into your project's `components` directory so it can be loaded by open.mp server and find your gamemodes in the `gamemodes` folder.
+1. Download the latest version from [here](https://github.com/kodeyeen/gomponent/releases/latest).
+2. Put the `Go.dll` or `Go.so` file into server's `components` directory.
+3. Make sure you have some built [omp](https://github.com/kodeyeen/omp) gamemode in the `gamemodes` folder.
+4. Specify the gamemode name to be loaded in your `config.json`:
+
+```json
+"go": {
+    "gamemode": "<YOUR GAMEMODE NAME>"
+}
+```
+
+5. Run the server.
