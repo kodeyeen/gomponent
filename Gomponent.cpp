@@ -59,8 +59,6 @@ void Gomponent::onLoad(ICore* c)
 
 void Gomponent::onInit(IComponentList* components)
 {
-	// core_->printLn("Gomponent is being initialized.");
-
 	actors = components->queryComponent<IActorsComponent>();
 	checkpoints = components->queryComponent<ICheckpointsComponent>();
 	classes = components->queryComponent<IClassesComponent>();
@@ -152,8 +150,7 @@ void Gomponent::onInit(IComponentList* components)
 
 void Gomponent::onReady()
 {
-	gamemode_->init();
-	// core_->printLn("Gomponent is ready.");
+	gamemode_->call<void>("onGameModeInit");
 }
 
 void Gomponent::onFree(IComponent* component)

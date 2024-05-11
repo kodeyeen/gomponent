@@ -8,13 +8,9 @@ Gamemode::Gamemode(const std::string& path)
 
 	if (handle == NULL)
 	{
-		std::cerr << "Failed to open library. Error code: " << GetLastError() << std::endl;
+		std::cerr << "Failed to load gamemode. Error code: " << GetLastError() << std::endl;
 		return;
 	}
-}
-
-void Gamemode::init() {
-	call<void>("onGameModeInit");
 }
 
 Gamemode::~Gamemode()

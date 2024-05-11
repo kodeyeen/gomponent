@@ -11,7 +11,6 @@ class Gamemode final : public Singleton<Gamemode>
 public:
 	Gamemode(const std::string& path);
 	~Gamemode();
-	void init();
 
 	template <typename R, typename... Args>
 	R call(const std::string& callbackName, Args... args);
