@@ -23,6 +23,11 @@ extern "C"
 		}
 	}
 
+	GOMPONENT_EXPORT uint8_t getWeaponSlotIndex(uint8_t weapon)
+	{
+		return WeaponSlotData { weapon }.slot();
+	}
+
 #ifdef __cplusplus
 }
 #endif
