@@ -30,7 +30,7 @@ Gamemode* Gomponent::getGamemode() {
 // Required component methods.
 StringView Gomponent::componentName() const
 {
-	return "Gomponent";
+	return "Go";
 }
 
 SemanticVersion Gomponent::componentVersion() const
