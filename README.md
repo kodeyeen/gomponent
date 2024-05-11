@@ -1,4 +1,4 @@
-Gomponent
+gomponent
 ==================================
 
 This is an open.mp component for loading gamemodes written in Go with the [omp](https://github.com/kodeyeen/omp) package.
