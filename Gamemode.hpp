@@ -2,7 +2,12 @@
 
 #include <string>
 #include <sdk.hpp>
-#include <Windows.h>
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+	#include <Windows.h>
+#else
+	#include <dlfcn.h>
+#endif
 
 #include "Singleton.hpp"
 
