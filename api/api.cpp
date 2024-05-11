@@ -28,6 +28,11 @@ extern "C"
 		return WeaponSlotData { weapon }.slot();
 	}
 
+	GOMPONENT_EXPORT unsigned char getVehicleModelInfo(int model, int type, Vector3* out)
+	{
+		return Impl::getVehicleModelInfo(model, VehicleModelInfoType(type), *out) ? 1 : 0;
+	}
+
 #ifdef __cplusplus
 }
 #endif

@@ -22,6 +22,7 @@
 #include <Server/Components/TextDraws/textdraws.hpp>
 #include <Server/Components/TextLabels/textlabels.hpp>
 #include <Server/Components/Vehicles/vehicles.hpp>
+#include <Server/Components/Vehicles/vehicle_models.hpp>
 #include <Server/Components/CustomModels/custommodels.hpp>
 
 // This is the private implementation of the public interface.  We must know the interface.
