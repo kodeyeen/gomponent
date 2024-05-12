@@ -2,20 +2,30 @@
 
 #include "Gamemode.hpp"
 
-Gamemode::Gamemode(const std::string& path)
+Gamemode::Gamemode(const std::string& name)
 {
-	handle = openLib(path);
-
-	if (handle == NULL)
-	{
-		std::cerr << "Failed to load gamemode. Error code: " << GetLastError() << std::endl;
-		return;
-	}
+	name = name;
 }
 
 Gamemode::~Gamemode()
 {
 	closeLib(handle);
+}
+
+void load()
+{
+	handle = openLib(path);
+
+	if (handle == NULL)
+	{
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+		
+#else
+		
+#endif
+		// std::cerr << "Failed to load gamemode. Error code: " << GetLastError() << std::endl;
+		// return;
+	}
 }
 
 void* Gamemode::openLib(const std::string& path)
