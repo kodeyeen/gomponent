@@ -451,7 +451,7 @@ extern "C"
 	{
 		std::pair<std::chrono::hours, std::chrono::minutes> data = static_cast<IPlayer*>(player)->getTime();
 
-		return { data.first.count(), data.second.count() };
+		return { static_cast<int>(data.first.count()), static_cast<int>(data.second.count()) };
 	}
 
 	GOMPONENT_EXPORT void player_useClock(void* player, int enable)
