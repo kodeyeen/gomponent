@@ -35,7 +35,7 @@ StringView Gomponent::componentName() const
 
 SemanticVersion Gomponent::componentVersion() const
 {
-	return SemanticVersion(0, 0, 1, 0);
+	return SemanticVersion(0, 2, 0, 0);
 }
 
 void Gomponent::onLoad(ICore* c)
