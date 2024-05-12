@@ -14,20 +14,17 @@
 class Gamemode final : public Singleton<Gamemode>
 {
 public:
-	Gamemode(const std::string& path);
 	~Gamemode();
-	void load();
+	void load(const std::string& name);
+	void unload();
 
 	template <typename R, typename... Args>
 	R call(const std::string& callbackName, Args... args);
 
 private:
 	void* handle;
-	const std::string& name;
 	FlatHashMap<std::string, void*> callbacks;
 
-	void* openLib(const std::string& path);
-	void closeLib(void* handle);
 	void* findCallback(const std::string& name);
 };
 

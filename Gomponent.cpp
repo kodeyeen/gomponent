@@ -54,8 +54,8 @@ void Gomponent::onLoad(ICore* c)
 		return;
 	}
 
-	gamemode_ = new Gamemode(gamemodeName.to_string());
-	gamemode_->load();
+	gamemode_ = Gamemode::Get();
+	gamemode_->load(gamemodeName.to_string());
 }
 
 void Gomponent::onInit(IComponentList* components)

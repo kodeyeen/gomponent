@@ -2,42 +2,31 @@
 
 #include "Gamemode.hpp"
 
-Gamemode::Gamemode(const std::string& name)
-{
-	name = name;
-}
-
 Gamemode::~Gamemode()
 {
-	closeLib(handle);
+	unload();
 }
 
-void load()
+void Gamemode::load(const std::string& name)
 {
-	handle = openLib(path);
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+	handle = LoadLibrary(("gamemodes/" + name + ".dll").c_str());
+#else
+	handle = dlopen(("gamemodes/" + name + ".so").c_str(), RTLD_GLOBAL | RTLD_NOW);
+#endif
 
 	if (handle == NULL)
 	{
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-		
-#else
-		
-#endif
 		// std::cerr << "Failed to load gamemode. Error code: " << GetLastError() << std::endl;
 		// return;
+#else
+	
+#endif
 	}
 }
 
-void* Gamemode::openLib(const std::string& path)
-{
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-	return LoadLibrary(path.c_str());
-#else
-	return dlopen(path.c_str(), RTLD_GLOBAL | RTLD_NOW);
-#endif
-}
-
-void Gamemode::closeLib(void* handle)
+void Gamemode::unload()
 {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
 	FreeLibrary((HMODULE)handle);
