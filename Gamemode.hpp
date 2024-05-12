@@ -14,7 +14,6 @@
 class Gamemode final : public Singleton<Gamemode>
 {
 public:
-	~Gamemode();
 	void load(const std::string& name);
 	void unload();
 

@@ -196,4 +196,6 @@ void Gomponent::reset()
 // When this component is destroyed we need to tell any linked components this it is gone.
 Gomponent::~Gomponent()
 {
+	gamemode_->call<void>("onGameModeExit");
+	gamemode_->unload();
 }

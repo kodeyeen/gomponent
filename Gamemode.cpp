@@ -2,11 +2,6 @@
 
 #include "Gamemode.hpp"
 
-Gamemode::~Gamemode()
-{
-	unload();
-}
-
 void Gamemode::load(const std::string& name)
 {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
