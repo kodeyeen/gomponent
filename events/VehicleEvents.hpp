@@ -9,7 +9,7 @@ class VehicleEvents : public VehicleEventHandler, public Singleton<VehicleEvents
 public:
 	VehicleEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onVehicleStreamIn(IVehicle& vehicle, IPlayer& player) override

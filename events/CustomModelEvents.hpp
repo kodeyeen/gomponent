@@ -9,7 +9,7 @@ class CustomModelEvents : public PlayerModelsEventHandler, public Singleton<Cust
 public:
 	CustomModelEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerFinishedDownloading(IPlayer& player) override

@@ -56,8 +56,6 @@ public:
 	IVehiclesComponent* vehicles = nullptr;
 	ICustomModelsComponent* models = nullptr;
 
-	Gamemode* getGamemode();
-
 	// Required component methods.
 	StringView componentName() const override;
 

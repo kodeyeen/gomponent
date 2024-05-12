@@ -9,7 +9,7 @@ class PickupEvents : public PickupEventHandler, public Singleton<PickupEvents>
 public:
 	PickupEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerPickUpPickup(IPlayer& player, IPickup& pickup) override

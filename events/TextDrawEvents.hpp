@@ -9,7 +9,7 @@ class TextDrawEvents : public TextDrawEventHandler, public Singleton<TextDrawEve
 public:
 	TextDrawEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerClickTextDraw(IPlayer& player, ITextDraw& td) override

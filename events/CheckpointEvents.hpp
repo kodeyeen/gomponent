@@ -9,7 +9,7 @@ class CheckpointEvents : public PlayerCheckpointEventHandler, public Singleton<C
 public:
 	CheckpointEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerEnterCheckpoint(IPlayer& player) override

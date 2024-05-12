@@ -9,7 +9,7 @@ class MenuEvents : public MenuEventHandler, public Singleton<MenuEvents>
 public:
 	MenuEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerSelectedMenuRow(IPlayer& player, MenuRow row) override

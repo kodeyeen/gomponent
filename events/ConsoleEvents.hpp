@@ -11,7 +11,7 @@ class ConsoleEvents : public ConsoleEventHandler, public Singleton<ConsoleEvents
 public:
 	ConsoleEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	bool onConsoleText(StringView command, StringView parameters, const ConsoleCommandSenderData& sender) override

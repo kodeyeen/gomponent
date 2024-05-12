@@ -9,7 +9,7 @@ class ClassEvents : public ClassEventHandler, public Singleton<ClassEvents>
 public:
 	ClassEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	bool onPlayerRequestClass(IPlayer& player, unsigned int classId) override

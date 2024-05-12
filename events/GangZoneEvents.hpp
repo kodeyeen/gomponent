@@ -9,7 +9,7 @@ class GangZoneEvents : public GangZoneEventHandler, public Singleton<GangZoneEve
 public:
 	GangZoneEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerEnterGangZone(IPlayer& player, IGangZone& zone) override

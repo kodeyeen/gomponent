@@ -9,7 +9,7 @@ class ActorEvents : public ActorEventHandler, public Singleton<ActorEvents>
 public:
 	ActorEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onPlayerGiveDamageActor(IPlayer& player, IActor& actor, float amount, unsigned weapon, BodyPart part) override

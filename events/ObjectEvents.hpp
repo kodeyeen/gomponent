@@ -10,7 +10,7 @@ class ObjectEvents : public ObjectEventHandler, public Singleton<ObjectEvents>
 public:
 	ObjectEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onMoved(IObject& object) override

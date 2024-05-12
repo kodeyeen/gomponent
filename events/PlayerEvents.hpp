@@ -20,7 +20,7 @@ class PlayerEvents : public PlayerSpawnEventHandler, public PlayerConnectEventHa
 public:
 	PlayerEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	// Player spawn events

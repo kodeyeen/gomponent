@@ -10,7 +10,7 @@ class DialogEvents : public PlayerDialogEventHandler, public Singleton<DialogEve
 public:
 	DialogEvents()
 	{
-		gamemode_ = Gomponent::Get()->getGamemode();
+		gamemode_ = Gamemode::Get();
 	}
 
 	void onDialogResponse(IPlayer& player, int dialogId, DialogResponse response, int listItem, StringView inputText) override

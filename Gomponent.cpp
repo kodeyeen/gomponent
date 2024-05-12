@@ -23,10 +23,6 @@
 #include "VehicleEvents.hpp"
 #include "CustomModelEvents.hpp"
 
-Gamemode* Gomponent::getGamemode() {
-	return gamemode_;
-}
-
 // Required component methods.
 StringView Gomponent::componentName() const
 {
@@ -45,6 +41,8 @@ void Gomponent::onLoad(ICore* c)
 	core = c;
 	config = &c->getConfig();
 	players = &c->getPlayers();
+
+	gamemode_ = Gamemode::Get();
 }
 
 void Gomponent::onInit(IComponentList* components)
@@ -147,8 +145,6 @@ void Gomponent::onReady()
 		core->logLn(LogLevel::Error, "go.gamemode config string is not set");
 		return;
 	}
-
-	gamemode_ = Gamemode::Get();
 
 	try
 	{
