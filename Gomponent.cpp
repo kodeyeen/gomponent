@@ -45,17 +45,6 @@ void Gomponent::onLoad(ICore* c)
 	core = c;
 	config = &c->getConfig();
 	players = &c->getPlayers();
-
-	StringView gamemodeName = config->getString("go.gamemode");
-	
-	if (gamemodeName.empty())
-	{
-		core->logLn(LogLevel::Error, "go.gamemode config string is not set");
-		return;
-	}
-
-	gamemode_ = Gamemode::Get();
-	gamemode_->load(gamemodeName.to_string());
 }
 
 void Gomponent::onInit(IComponentList* components)
@@ -151,7 +140,25 @@ void Gomponent::onInit(IComponentList* components)
 
 void Gomponent::onReady()
 {
-	gamemode_->call<void>("onGameModeInit");
+	StringView gamemodeName = config->getString("go.gamemode");
+
+	if (gamemodeName.empty())
+	{
+		core->logLn(LogLevel::Error, "go.gamemode config string is not set");
+		return;
+	}
+
+	gamemode_ = Gamemode::Get();
+
+	try
+	{
+		gamemode_->load(gamemodeName.to_string());
+		gamemode_->call<void>("onGameModeInit");
+	}
+	catch (const std::runtime_error& error)
+	{
+		core->logLn(LogLevel::Error, "Failed to load gamemode: %s", error.what());
+	}
 }
 
 void Gomponent::onFree(IComponent* component)
