@@ -70,6 +70,46 @@ extern "C"
 		}
 	}
 
+	GOMPONENT_EXPORT void server_setServerName(String name)
+	{
+		ICore* core = Gomponent::Get()->core;
+
+		if (core)
+		{
+			core->setData(SettableCoreDataType::ServerName, StringView(name.buf, name.length));
+		}
+	}
+
+	GOMPONENT_EXPORT void server_setMapName(String name)
+	{
+		ICore* core = Gomponent::Get()->core;
+
+		if (core)
+		{
+			core->setData(SettableCoreDataType::MapName, StringView(name.buf, name.length));
+		}
+	}
+
+	GOMPONENT_EXPORT void server_setLanguage(String language)
+	{
+		ICore* core = Gomponent::Get()->core;
+
+		if (core)
+		{
+			core->setData(SettableCoreDataType::Language, StringView(language.buf, language.length));
+		}
+	}
+
+	GOMPONENT_EXPORT void server_setURL(String url)
+	{
+		ICore* core = Gomponent::Get()->core;
+
+		if (core)
+		{
+			core->setData(SettableCoreDataType::URL, StringView(url.buf, url.length));
+		}
+	}
+
 #ifdef __cplusplus
 }
 #endif
