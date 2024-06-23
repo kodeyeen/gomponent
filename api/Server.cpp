@@ -30,16 +30,6 @@ extern "C"
 		va_end(args);
 	}
 
-	GOMPONENT_EXPORT void server_setModeText(String text)
-	{
-		ICore* core = Gomponent::Get()->core;
-
-		if (core)
-		{
-			core->setData(SettableCoreDataType::ModeText, StringView(text.buf, text.length));
-		}
-	}
-
 	GOMPONENT_EXPORT void server_setWeather(int weather)
 	{
 		ICore* core = Gomponent::Get()->core;
@@ -70,43 +60,13 @@ extern "C"
 		}
 	}
 
-	GOMPONENT_EXPORT void server_setServerName(String name)
+	GOMPONENT_EXPORT void server_setData(int type, String data)
 	{
 		ICore* core = Gomponent::Get()->core;
 
 		if (core)
 		{
-			core->setData(SettableCoreDataType::ServerName, StringView(name.buf, name.length));
-		}
-	}
-
-	GOMPONENT_EXPORT void server_setMapName(String name)
-	{
-		ICore* core = Gomponent::Get()->core;
-
-		if (core)
-		{
-			core->setData(SettableCoreDataType::MapName, StringView(name.buf, name.length));
-		}
-	}
-
-	GOMPONENT_EXPORT void server_setLanguage(String language)
-	{
-		ICore* core = Gomponent::Get()->core;
-
-		if (core)
-		{
-			core->setData(SettableCoreDataType::Language, StringView(language.buf, language.length));
-		}
-	}
-
-	GOMPONENT_EXPORT void server_setURL(String url)
-	{
-		ICore* core = Gomponent::Get()->core;
-
-		if (core)
-		{
-			core->setData(SettableCoreDataType::URL, StringView(url.buf, url.length));
+			core->setData(SettableCoreDataType(type), StringView(data.buf, data.length));
 		}
 	}
 
