@@ -21,6 +21,7 @@ add_library(${PROJECT_NAME} SHARED
 	"api/Checkpoint.cpp"
 	"api/Class.cpp"
 	"api/Config.cpp"
+	"api/Console.cpp"
 	"api/CustomModel.cpp"
 	"api/GangZone.cpp"
 	"api/Menu.cpp"
