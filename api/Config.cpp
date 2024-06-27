@@ -60,7 +60,7 @@ extern "C"
 		return 0.0;
 	}
 
-	GOMPONENT_EXPORT int config_getInt(String key, int value)
+	GOMPONENT_EXPORT int config_getInt(String key)
 	{
 		IConfig* config = Gomponent::Get()->config;
 
