@@ -932,7 +932,7 @@ extern "C"
 
 		if (!data->sendDownloadUrl(urlView))
 		{
-			Gomponent::Get()->core->logLn(LogLevel::Warning, "This native can be used only within OnPlayerRequestDownload callback.");
+			Gomponent::Get()->core->logLn(LogLevel::Warning, "RedirectDownload can be used only within OnPlayerRequestDownload event.");
 			return 0;
 		}
 		return 1;
