@@ -33,6 +33,18 @@ extern "C"
 		return {NULL, 0};
 	}
 
+	GOMPONENT_EXPORT unsigned char customModel_isValid(int32_t modelId)
+	{
+		ICustomModelsComponent* models = Gomponent::Get()->models;
+
+		if (!models)
+		{
+			return 0;
+		}
+
+		return models->isValidCustomModel(modelId) ? 1 : 0;
+	}
+
 	GOMPONENT_EXPORT unsigned char customModel_getPath(int32_t modelId, String* dffPath, String* txdPath)
 	{
 		ICustomModelsComponent* models = Gomponent::Get()->models;
