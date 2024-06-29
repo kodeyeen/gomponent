@@ -78,7 +78,7 @@ extern "C"
 
 		if (config)
 		{
-			return *config->getBool(StringView(key.buf, key.length));
+			return *config->getBool(StringView(key.buf, key.length)) ? 1 : 0;
 		}
 
 		return 0;
