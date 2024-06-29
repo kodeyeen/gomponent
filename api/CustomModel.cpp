@@ -20,13 +20,13 @@ extern "C"
 		return 0;
 	}
 
-	GOMPONENT_EXPORT String customModel_getNameFromCheckSum(uint32_t crc)
+	GOMPONENT_EXPORT String customModel_getNameFromCheckSum(uint32_t checksum)
 	{
 		ICustomModelsComponent* models = Gomponent::Get()->models;
 
 		if (models)
 		{
-			StringView nameView = models->getModelNameFromChecksum(crc);
+			StringView nameView = models->getModelNameFromChecksum(checksum);
 			return { nameView.data(), nameView.length() };
 		}
 
