@@ -919,6 +919,25 @@ extern "C"
 		return data->getCustomSkin();
 	}
 
+	GOMPONENT_EXPORT unsigned char player_redirectDownload(void* player, String url)
+	{
+		IPlayerCustomModelsData* data = queryExtension<IPlayerCustomModelsData>(static_cast<IPlayer*>(player));
+
+		if (!data)
+		{
+			return 0;
+		}
+
+		StringView urlView = StringView(url.buf, url.length);
+
+		if (!data->sendDownloadUrl(urlView))
+		{
+			Gomponent::Get()->core->logLn(LogLevel::Warning, "This native can be used only within OnPlayerRequestDownload callback.");
+			return 0;
+		}
+		return 1;
+	}
+
 	// dialog data
 
 	GOMPONENT_EXPORT void player_showDialog(void* player, int id, int style, String title, String body, String button1, String button2)
